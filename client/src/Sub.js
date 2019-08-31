@@ -22,74 +22,99 @@ class Sub extends Component {
       <Container>
         <Row>
           <EditableContent
+            grid={this.props.grid}
+            num={1}
             area={
               this.props.content && this.props.content["1"]
                 ? this.props.content["1"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           />
           <EditableContent
+            grid={this.props.grid}
+            num={2}
             area={
               this.props.content && this.props.content["2"]
                 ? this.props.content["2"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           />
           <EditableContent
+            grid={this.props.grid}
+            num={3}
             area={
               this.props.content && this.props.content["3"]
                 ? this.props.content["3"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           />
         </Row>
         <Row>
           <EditableContent
+            grid={this.props.grid}
+            num={4}
             area={
               this.props.content && this.props.content["4"]
                 ? this.props.content["4"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           />
           <EditableContent
+            grid={this.props.grid}
+            num={5}
             area={
               this.props.content && this.props.content["5"]
                 ? this.props.content["5"]
                 : undefined
             }
-            id={this.props.id}
             name="sub_main"
             updateMainContent={this.props.updateMainContent}
           />
           <EditableContent
+            grid={this.props.grid}
+            num={6}
             area={
               this.props.content && this.props.content["6"]
                 ? this.props.content["6"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           />
         </Row>
         <Row>
           <EditableContent
+            grid={this.props.grid}
+            num={7}
             area={
               this.props.content && this.props.content["7"]
                 ? this.props.content["7"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           />
           <EditableContent
+            grid={this.props.grid}
+            num={8}
             area={
               this.props.content && this.props.content["8"]
                 ? this.props.content["8"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           />
           <EditableContent
+            grid={this.props.grid}
+            num={9}
             area={
               this.props.content && this.props.content["9"]
                 ? this.props.content["9"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           />
         </Row>
       </Container>

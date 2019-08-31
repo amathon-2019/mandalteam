@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
+const Container = styled.input`
   width: 33.3333%;
   heigth: 100%;
   font-size: 1rem;
@@ -16,9 +16,41 @@ class UneditableContent extends Component {
     };
   }
 
+  convertGridToNumber(grid) {
+    switch (grid) {
+      case "A":
+        return 1;
+      case "B":
+        return 2;
+      case "C":
+        return 3;
+      case "D":
+        return 4;
+      case "E":
+        return 5;
+      case "F":
+        return 6;
+      case "G":
+        return 7;
+      case "H":
+        return 8;
+      case "I":
+        return 9;
+    }
+  }
+
   handleChange(e) {
+    this.props.updateMainContent(
+      this.props.grid,
+      this.props.num,
+      e.target.value
+    );
     if (this.props.name === "sub_main") {
-      this.props.updateMainContent(this.props.id, e.target.value);
+      this.props.updateMainContent(
+        "E",
+        this.convertGridToNumber(this.props.grid),
+        e.target.value
+      );
     }
   }
 
@@ -30,6 +62,7 @@ class UneditableContent extends Component {
     return (
       <Container
         onChange={this.handleChange.bind(this)}
+        ref={ref => (this.Container = ref)}
         value={
           this.props.area && this.props.area.text
             ? this.props.area.text

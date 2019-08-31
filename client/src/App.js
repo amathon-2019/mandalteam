@@ -46,6 +46,7 @@ class App extends React.Component {
       // }
       content: undefined
     };
+    this.updateMainContent = this.updateMainContent.bind(this);
   }
 
   componentDidMount() {
@@ -62,9 +63,27 @@ class App extends React.Component {
       });
   }
 
-  handleChange(e) {
+  updateMainContent(grid, num, text) {
+    console.log(grid, num, text);
+    const newContent = this.state.content;
+    if (!newContent[grid]) {
+      newContent[grid] = {};
+    }
+    if (!newContent[grid][num]) {
+      newContent[grid][num] = {};
+    }
+    newContent[grid][num]["text"] = text;
+
     this.setState({
-      [e.target.name]: e.target.value
+      content: newContent
+    });
+  }
+
+  handleChange(e) {
+    const newContent = this.state.content;
+    newContent["E"]["5"]["text"] = e.target.value;
+    this.setState({
+      content: newContent
     });
   }
 
@@ -73,12 +92,16 @@ class App extends React.Component {
       <Container className="App">
         <Title
           name="title"
-          value={this.state.title}
+          value={
+            this.state.content
+              ? this.state.content["E"]["5"]["text"]
+              : undefined
+          }
           onChange={this.handleChange.bind(this)}
         />
         <Root
-          title={this.state.title}
           content={this.state.content ? this.state.content : undefined}
+          updateMainContent={this.updateMainContent}
         />
       </Container>
     );

@@ -4,8 +4,8 @@ import Sub from "./Sub";
 import Main from "./Main";
 
 const Container = styled.div`
-  width: ${(prop) => prop.size}px;
-  height: ${(prop) => prop.size}px;
+  width: ${prop => prop.size}px;
+  height: ${prop => prop.size}px;
   margin: 0 auto;
 
   border: solid #999;
@@ -25,26 +25,17 @@ class Root extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      subContents: [null, null, null, null, null, null, null, null, null, null],
-      main: <Main />,
       containerSize: Math.min(window.innerWidth, window.innerHeight) - 100
     };
-    this.updateMainContent = this.updateMainContent.bind(this);
   }
 
   componentDidMount() {
-    window.addEventListener('resize', () => {
-      this.setState(prev => prev.containerSize = Math.min(window.innerWidth, window.innerHeight) - 100);
-    });
-  }
-
-  updateMainContent(sub_id, content) {
-    console.log(sub_id, content);
-    const newSubContents = this.state.subContents;
-    newSubContents[sub_id] = content;
-
-    this.setState({
-      subContents: newSubContents
+    window.addEventListener("resize", () => {
+      this.setState(
+        prev =>
+          (prev.containerSize =
+            Math.min(window.innerWidth, window.innerHeight) - 100)
+      );
     });
   }
 
@@ -58,8 +49,8 @@ class Root extends Component {
                 ? this.props.content["A"]
                 : undefined
             }
-            id="1"
-            updateMainContent={this.updateMainContent}
+            grid="A"
+            updateMainContent={this.props.updateMainContent}
           />
           <Sub
             content={
@@ -67,8 +58,8 @@ class Root extends Component {
                 ? this.props.content["B"]
                 : undefined
             }
-            id="2"
-            updateMainContent={this.updateMainContent}
+            grid="B"
+            updateMainContent={this.props.updateMainContent}
           />
           <Sub
             content={
@@ -76,8 +67,8 @@ class Root extends Component {
                 ? this.props.content["C"]
                 : undefined
             }
-            id="3"
-            updateMainContent={this.updateMainContent}
+            grid="C"
+            updateMainContent={this.props.updateMainContent}
           />
         </Row>
         <Row>
@@ -87,13 +78,17 @@ class Root extends Component {
                 ? this.props.content["D"]
                 : undefined
             }
-            id="4"
-            updateMainContent={this.updateMainContent}
+            grid="D"
+            updateMainContent={this.props.updateMainContent}
           />
           <Main
-            title={this.props.title}
-            id="main"
-            subContents={this.state.subContents}
+            content={
+              this.props.content && this.props.content["E"]
+                ? this.props.content["E"]
+                : undefined
+            }
+            grid="E"
+            updateMainContent={this.props.updateMainContent}
           />
           <Sub
             content={
@@ -101,8 +96,8 @@ class Root extends Component {
                 ? this.props.content["F"]
                 : undefined
             }
-            id="6"
-            updateMainContent={this.updateMainContent}
+            grid="F"
+            updateMainContent={this.props.updateMainContent}
           />
         </Row>
         <Row>
@@ -112,8 +107,8 @@ class Root extends Component {
                 ? this.props.content["G"]
                 : undefined
             }
-            id="7"
-            updateMainContent={this.updateMainContent}
+            grid="G"
+            updateMainContent={this.props.updateMainContent}
           />
           <Sub
             content={
@@ -121,8 +116,8 @@ class Root extends Component {
                 ? this.props.content["H"]
                 : undefined
             }
-            id="8"
-            updateMainContent={this.updateMainContent}
+            grid="H"
+            updateMainContent={this.props.updateMainContent}
           />
           <Sub
             content={
@@ -130,8 +125,8 @@ class Root extends Component {
                 ? this.props.content["I"]
                 : undefined
             }
-            id="9"
-            updateMainContent={this.updateMainContent}
+            grid="I"
+            updateMainContent={this.props.updateMainContent}
           />
         </Row>
       </Container>

@@ -10,18 +10,18 @@ app.get("/json", (req, res, next) => {
   const content = {
     A: {
       "1": {
-        text: "asdfasfd"
+        text: "첫 번째"
       },
       "2": {
-        text: "asdfasfd"
+        text: "두 번째"
       }
     },
     B: {
       "1": {
-        text: "asdfasfd"
+        text: "첫 번째 "
       },
       "2": {
-        text: "asdfasfd"
+        text: "두 번째"
       }
     },
     E: {

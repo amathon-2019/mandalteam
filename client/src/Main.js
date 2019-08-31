@@ -24,9 +24,10 @@ class Main extends Component {
           <UneditableContent
             area={
               this.props.content && this.props.content["1"]
-                ? this.props.contents["1"]
+                ? this.props.content["1"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           ></UneditableContent>
           <UneditableContent
             area={
@@ -34,6 +35,7 @@ class Main extends Component {
                 ? this.props.content["2"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           ></UneditableContent>
           <UneditableContent
             area={
@@ -41,6 +43,7 @@ class Main extends Component {
                 ? this.props.content["3"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           ></UneditableContent>
         </Row>
         <Row>
@@ -50,14 +53,24 @@ class Main extends Component {
                 ? this.props.content["4"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           ></UneditableContent>
-          <UneditableContent title={this.props.title} />
+          <UneditableContent
+            name="title"
+            area={
+              this.props.content && this.props.content["5"]
+                ? this.props.content["5"]
+                : undefined
+            }
+            updateMainContent={this.props.updateMainContent}
+          />
           <UneditableContent
             area={
               this.props.content && this.props.content["6"]
                 ? this.props.content["6"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           ></UneditableContent>
         </Row>
         <Row>
@@ -67,6 +80,7 @@ class Main extends Component {
                 ? this.props.content["7"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           ></UneditableContent>
           <UneditableContent
             area={
@@ -74,6 +88,7 @@ class Main extends Component {
                 ? this.props.content["8"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           ></UneditableContent>
           <UneditableContent
             area={
@@ -81,6 +96,7 @@ class Main extends Component {
                 ? this.props.content["9"]
                 : undefined
             }
+            updateMainContent={this.props.updateMainContent}
           ></UneditableContent>
         </Row>
       </Container>

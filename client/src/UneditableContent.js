@@ -7,13 +7,13 @@ const Container = styled.div`
 `;
 
 class UneditableContent extends Component {
+  handleChange(e) {}
+
   render() {
     return (
       <Container>
-        {this.props.title
-          ? this.props.title
-          : this.props.content
-          ? this.props.content
+        {this.props.area && this.props.area.text
+          ? this.props.area.text
           : undefined}
       </Container>
     );
