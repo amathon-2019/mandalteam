@@ -1,7 +1,10 @@
 import graphene
+from django.contrib.auth import get_user_model
+
 from base.schema import SimpleUserNode
 from graphene_django import DjangoConnectionField
 from mandalart.utils import HashIdDjangoObjectType
+User = get_user_model()
 
 from .models import Chart
 
@@ -23,6 +26,21 @@ AllChartConnectionField = DjangoConnectionField(
 )
 
 
+# 차트 추가하는 뮤테이션
+class ChartCreate(graphene.Mutation):
+    class Arguments:
+        name = graphene.Argument(graphene.String,description="차트 이름")
+        pass
+
+    chart = graphene.Field(ChartNode)
+
+    def mutate(self, info, name):
+        user = User.objects.get_or_create(username="test")
+        new_chart = Chart.objects.create(master=user)
+
+        return ChartCreate(chart=new_chart)
+
+
 class Query(graphene.ObjectType):
     chart = graphene.Field(ChartNode, description='만다라 차트', question_gid=graphene.ID())
     all_charts = AllChartConnectionField
@@ -32,4 +50,5 @@ class Query(graphene.ObjectType):
 
 
 class Mutation(graphene.ObjectType):
-    pass
+    make_chart = ChartCreate.Field()
+

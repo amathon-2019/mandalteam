@@ -7,7 +7,7 @@ from .models import User
 class SimpleUserNode(HashIdDjangoObjectType):
     class Meta:
         interfaces = (graphene.relay.Node,)
-        only_fields = ('date_joined', 'username')
+        only_fields = ('date_joined', 'username', 'pk')
         model = User
 
 
