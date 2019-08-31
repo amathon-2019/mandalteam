@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import UneditableContent from "./UneditableContent";
-import EditableContent from "./EditableContent";
 
 const Container = styled.div`
   width: 33.3333%;
@@ -18,39 +17,37 @@ const Row = styled.div`
 `;
 
 class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      background: this.props.startBackground
+    };
+  }
+
+  nextBackground() {
+    let nowBg = this.state.background;
+    if (!nowBg) nowBg = '#fff';
+    this.state.background = nowBg == '#f9f9f9' ? '#fff' : '#f9f9f9';
+    return nowBg;
+  }
+
   render() {
     return (
       <Container>
         <Row>
-          <UneditableContent
-            content={this.props.subContents[1]}
-          ></UneditableContent>
-          <UneditableContent
-            content={this.props.subContents[2]}
-          ></UneditableContent>
-          <UneditableContent
-            content={this.props.subContents[3]}
-          ></UneditableContent>
+          <UneditableContent content={this.props.subContents[1]} background={this.nextBackground()} />
+          <UneditableContent content={this.props.subContents[2]} background={this.nextBackground()} />
+          <UneditableContent content={this.props.subContents[3]} background={this.nextBackground()} />
         </Row>
         <Row>
-          <UneditableContent
-            content={this.props.subContents[4]}
-          ></UneditableContent>
-          <UneditableContent title={this.props.title} />
-          <UneditableContent
-            content={this.props.subContents[6]}
-          ></UneditableContent>
+          <UneditableContent content={this.props.subContents[4]} background={this.nextBackground()} />
+          <UneditableContent title={this.props.title} background={this.nextBackground()} />
+          <UneditableContent content={this.props.subContents[6]} background={this.nextBackground()} />
         </Row>
         <Row>
-          <UneditableContent
-            content={this.props.subContents[7]}
-          ></UneditableContent>
-          <UneditableContent
-            content={this.props.subContents[8]}
-          ></UneditableContent>
-          <UneditableContent
-            content={this.props.subContents[9]}
-          ></UneditableContent>
+          <UneditableContent content={this.props.subContents[7]} background={this.nextBackground()} />
+          <UneditableContent content={this.props.subContents[8]} background={this.nextBackground()} />
+          <UneditableContent content={this.props.subContents[9]} background={this.nextBackground()} />
         </Row>
       </Container>
     );

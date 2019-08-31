@@ -7,9 +7,16 @@ const Container = styled.div`
   width: 100%;
 `;
 
+const TitleWrapper = styled.h1`
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 10px 20px 20px;
+  font-size: 1.4rem;
+`;
+
 const Title = styled.input`
-  width: 520px;
-  margin: 10px 10px 20px;
+  width: 100%;
   border: 0;
   border-bottom: 3px solid #666;
   font-size: 1.4rem;
@@ -37,11 +44,13 @@ class App extends React.Component {
   render() {
     return (
       <Container className="App">
-        <Title
-          name="title"
-          value={this.state.title}
-          onChange={this.handleChange.bind(this)}
-        />
+        <TitleWrapper>
+          <Title
+            name="title"
+            value={this.state.title}
+            onChange={this.handleChange.bind(this)}
+          />
+        </TitleWrapper>
         <Root title={this.state.title} />
       </Container>
     );

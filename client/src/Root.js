@@ -9,7 +9,7 @@ const Container = styled.div`
   margin: 0 auto;
 
   border: solid #999;
-  border-weight: 1px 0 0 1px;
+  border-width: 1px 0 0 1px;
 
   display: flex;
   flex-direction: column;
@@ -53,21 +53,21 @@ class Root extends Component {
       <Container size={this.state.containerSize}>
         <Row>
           <Sub id="1" updateMainContent={this.updateMainContent} />
-          <Sub id="2" updateMainContent={this.updateMainContent} />
+          <Sub id="2" updateMainContent={this.updateMainContent} startBackground="#f9f9f9" />
           <Sub id="3" updateMainContent={this.updateMainContent} />
         </Row>
         <Row>
-          <Sub id="4" updateMainContent={this.updateMainContent} />
+          <Sub id="4" updateMainContent={this.updateMainContent} startBackground="#f9f9f9" />
           <Main
             title={this.props.title}
             id="main"
             subContents={this.state.subContents}
           />
-          <Sub id="6" updateMainContent={this.updateMainContent} />
+          <Sub id="6" updateMainContent={this.updateMainContent} startBackground="#f9f9f9" />
         </Row>
         <Row>
           <Sub id="7" updateMainContent={this.updateMainContent} />
-          <Sub id="8" updateMainContent={this.updateMainContent} />
+          <Sub id="8" updateMainContent={this.updateMainContent} startBackground="#f9f9f9" />
           <Sub id="9" updateMainContent={this.updateMainContent} />
         </Row>
       </Container>

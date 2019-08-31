@@ -17,27 +17,42 @@ const Row = styled.div`
 `;
 
 class Sub extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      background: this.props.startBackground
+    };
+  }
+
+  nextBackground() {
+    let nowBg = this.state.background;
+    if (!nowBg) nowBg = '#fff';
+    this.state.background = nowBg == '#f9f9f9' ? '#fff' : '#f9f9f9';
+    return nowBg;
+  }
+
   render() {
     return (
       <Container>
         <Row>
-          <EditableContent />
-          <EditableContent />
-          <EditableContent />
+          <EditableContent background={this.nextBackground()} />
+          <EditableContent background={this.nextBackground()} />
+          <EditableContent background={this.nextBackground()} />
         </Row>
         <Row>
-          <EditableContent />
+          <EditableContent background={this.nextBackground()} />
           <EditableContent
             id={this.props.id}
             name="sub_main"
             updateMainContent={this.props.updateMainContent}
+            background={this.nextBackground()}
           />
-          <EditableContent />
+          <EditableContent background={this.nextBackground()} />
         </Row>
         <Row>
-          <EditableContent />
-          <EditableContent />
-          <EditableContent />
+          <EditableContent background={this.nextBackground()} />
+          <EditableContent background={this.nextBackground()} />
+          <EditableContent background={this.nextBackground()} />
         </Row>
       </Container>
     );
