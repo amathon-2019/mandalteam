@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import ContentContainer from "./ContentContainer";
+import Content from "./ContentContainer";
 
 const Container = styled.div`
   width: 33%;
@@ -14,13 +14,6 @@ const Row = styled.div`
   height: 33%;
 
   display: flex;
-`;
-
-const Content = styled(ContentContainer)`
-  width: 33%;
-  heigth: 100%;
-
-  border: 1px solid black;
 `;
 
 class Sub extends Component {
