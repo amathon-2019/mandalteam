@@ -91,7 +91,10 @@ class App extends React.Component {
 
   updateMainContent(grid, num, text) {
     console.log(grid, num, text);
-    const newContent = this.state.content;
+    let newContent = this.state.content;
+    if (!newContent) {
+      newContent = {};
+    }
     if (!newContent[grid]) {
       newContent[grid] = {};
     }
@@ -106,7 +109,16 @@ class App extends React.Component {
   }
 
   handleChange(e) {
-    const newContent = this.state.content;
+    let newContent = this.state.content;
+    if (!newContent) {
+      newContent = {};
+    }
+    if (!newContent["E"]) {
+      newContent["E"] = {};
+    }
+    if (!newContent["E"]["5"]) {
+      newContent["E"]["5"] = {};
+    }
     newContent["E"]["5"]["text"] = e.target.value;
     this.setState({
       content: newContent
