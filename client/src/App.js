@@ -86,12 +86,16 @@ class App extends React.Component {
           content: data,
           title: data.E[5].text
         });
-        if (!this.state.content) {
-          let newContent = this.state.content;
-          newContent = {};
-          newContent["E"] = {};
-          newContent["E"]["5"] = {};
-        }
+      })
+      .catch(err => {
+        let newContent = this.state.content;
+        newContent = {};
+        newContent["E"] = {};
+        newContent["E"]["5"] = {};
+
+        this.setState({
+          content: newContent
+        });
       });
   }
 
