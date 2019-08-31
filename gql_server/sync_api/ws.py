@@ -46,7 +46,7 @@ def connect(event, context):
     return {"statusCode": 200}
 
 
-subs = ["A", "B", "C", "D", "E", "F", "G", "H"]
+subs = ["A", "B", "C", "D", "E", "F", "G", "H","I"]
 
 
 def manager(event, context):
@@ -81,9 +81,12 @@ def manager(event, context):
             location = body.get('location')
             text = body.get('text')
             raw = ChartData.get(hashid)
-            x, y = location
-            x, y = (subs.index(x), int(y))
-            raw.chart[x].data[y].text = text
+            if location =="name":
+                raw.name = text
+            else:
+                x, y = location
+                x, y = (subs.index(x), int(y))
+                raw.chart[x].data[y].text = text
             raw.save()
             msg['ok'] = True
 
@@ -102,7 +105,6 @@ def sync(event, context):
             result = list(diff(old, new))
             for r in result:
                 # 셀 수정
-                data = None
                 if r[1][0] == "chart":
                     sub_index = r[1][2]
                     cell_index = r[1][6]
@@ -112,6 +114,14 @@ def sync(event, context):
                         "text": new['chart']["L"][sub_index]["M"]["data"]["L"][cell_index]["M"].get("text", {}).get("S",
                                                                                                                     ''),
                     }
+                else:
+                    # 제목 수정
+                    data = {
+                        "type": "changed",
+                        "location":"name",
+                        "text":new['name']['S']
+                    }
+
                 if data:
                     print(data)
                     for s in SessionDB.chart_index.query(hash_key=chart):
@@ -120,10 +130,6 @@ def sync(event, context):
                         s._send_msg(domain, stage, data)
                         print("커넥션 : ", s.connection_id, "  차트 : ", s.chart, " 데이터", data)
 
-                else:
-                    # 제목 수정
-                    pass
 
-        pass
-    print(event, context)
+
     return {"statusCode": 200}
