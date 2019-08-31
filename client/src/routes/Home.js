@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 import Cookies from 'universal-cookie';
+import { Mutation } from "react-apollo";
 
-import Room from "../components/List/Room";
+import Room from '../components/List/Room';
+import { MakeMutation } from '../graphql/mutations';
 
 const cookies = new Cookies();
 
@@ -76,6 +78,32 @@ const Title = styled.input`
   }
 `;
 
+class TitleBox extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: ''
+    };
+  }
+
+  handleField(field) {
+    return (e) => {
+      this.setState({ [field]: e.target.value });
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <Title value={this.state.title} placeholder="무엇에 대한 만다라트 차트인가요?" onChange={this.handleField('title')}></Title>
+        <i class='icon ion-md-create' onClick={(() => {
+          this.props.MakeMutation({ variables: this.state });
+        }).bind(this)}></i>
+      </div>
+    );
+  }
+};
+
 class Home extends Component {
   render() {
     return (
@@ -84,15 +112,23 @@ class Home extends Component {
           <h1>Mandal-Art</h1>
           <h5>실시간 동기화되는 만다라트 차트를 통해 협업해보세요!</h5>
           {cookies.get('token') ? <nav>
-            <a href="#" onClick={cookies.set('token', '')}>로그아웃</a>
+            <a href="#" onClick={() => {cookies.set('token', '')}}>로그아웃</a>
           </nav> : <nav>
             <a href="/login">로그인</a>
             <a href="/register">회원가입</a>
           </nav>}
         </Header>
         <CreateRoom>
-          <Title placeholder="무엇에 대한 만다라트 차트인가요?"></Title>
-          <i class='icon ion-md-create'></i>
+          <Mutation
+            mutation={MakeMutation}
+            onCompleted={async (data) => {
+              document.location.href = '/room/' + data.makeChart.chart.id;
+            }}
+						onError={e => {
+							alert(e);
+						}}>
+            {(MakeMutation) => <TitleBox MakeMutation={MakeMutation}></TitleBox>}
+          </Mutation>
         </CreateRoom>
         <Room href="/room/1111" title="방1"></Room>
         <Room href="/room/2222" title="방2"></Room>

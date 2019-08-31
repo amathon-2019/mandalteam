@@ -1,8 +1,8 @@
 import React, { PureComponent, Component } from 'react';
 import styled from "styled-components";
+import Cookies from 'universal-cookie';
 import { Mutation } from "react-apollo";
 import { LoginMutation } from '../graphql/mutations';
-import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 

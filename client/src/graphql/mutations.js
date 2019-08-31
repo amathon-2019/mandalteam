@@ -22,3 +22,14 @@ export const LoginMutation = gql`
     }
   }
 `;
+
+export const MakeMutation = gql`
+  mutation first_make($title: String!) {
+    makeChart(name: $title) {
+      chart {
+        name
+        id
+      }
+    }
+  }
+`;
