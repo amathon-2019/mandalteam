@@ -8,7 +8,15 @@ const Container = styled.div`
 
 class UneditableContent extends Component {
   render() {
-    return <Container></Container>;
+    return (
+      <Container>
+        {this.props.title
+          ? this.props.title
+          : this.props.content
+          ? this.props.content
+          : ""}
+      </Container>
+    );
   }
 }
 
