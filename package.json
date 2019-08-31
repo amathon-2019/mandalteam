@@ -6,8 +6,12 @@
   "author": "eunsukimme <eunsu.dev@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "apollo-boost": "^0.4.4",
     "express": "^4.17.1",
+    "graphql": "^14.5.4",
+    "graphql-tag": "^2.10.1",
     "morgan": "^1.9.1",
+    "react-apollo": "^3.0.1",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {

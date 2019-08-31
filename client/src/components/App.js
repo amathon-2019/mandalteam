@@ -7,6 +7,10 @@ import "./App.css";
 import Chart from "./Chart/Chart";
 import LiveUsers from "./Header/LiveUsers";
 
+import { Query, Mutation } from "react-apollo";
+import { first_make, second_list } from "./graphql/query/query";
+import { async } from "rxjs/internal/scheduler/async";
+
 const Container = styled.div`
   width: 100%;
   text-align: center;
@@ -97,7 +101,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const url = "/json";
+    /*const url = "/json";
 
     fetch(url)
       .then(res => res.json())
@@ -148,7 +152,7 @@ class App extends React.Component {
 
     this.setState({
       socket: socket
-    });
+    });*/
   }
 
   async updateMainContent(grid, num, text) {
@@ -210,39 +214,71 @@ class App extends React.Component {
     };
   }
 
+  onMutationComplete = () => {
+    this.setState({});
+  };
+
   render() {
     return (
-      <Container>
-        <Header>
-          <ChatButton
-            name="live-users"
-            onMouseEnter={this.toggleHoverState.bind(this)}
-            onMouseLeave={this.toggleHoverState.bind(this)}
-            className="icon ion-md-people"
-          >
-            <Users>{this.state.liveUsers}</Users>
-          </ChatButton>
-          {this.state.isHovering ? <LiveUsers /> : undefined}
-          <TitleWrapper>
-            <BackButton className="icon ion-md-arrow-round-back"></BackButton>
-            <Title
-              name="title"
-              value={
-                this.state.content
-                  ? this.state.content["E"]["4"]["text"]
-                  : undefined
-              }
-              placeholder="무엇에 대한 만다라트 차트인가요?"
-              onChange={this.handleChange.bind(this)}
-            />
-          </TitleWrapper>
-        </Header>
-        <Chart
-          content={this.state.content ? this.state.content : undefined}
-          updateMainContent={this.updateMainContent}
-          themeColor={this.makeColor(1)}
-        />
-      </Container>
+      <Mutation
+        mutation={first_make}
+        onCompleted={async data => {
+          const content = data.makeChart.chart.data;
+          console.log(content);
+
+          let newContent = {};
+
+          content.map(grid => {
+            newContent[grid.pos] = {};
+            if (grid.data && grid.data.length > 0) {
+              grid.data.forEach(area => {
+                newContent[grid.pos][area.pos] = {};
+                newContent[grid.pos][area.pos]["text"] = area.text;
+              });
+            }
+          });
+
+          console.log(this.state.content);
+        }}
+      >
+        {(makeChart, { loading }) => {
+          makeChart("sample");
+
+          return (
+            <Container>
+              <Header>
+                <ChatButton
+                  name="live-users"
+                  onMouseEnter={this.toggleHoverState.bind(this)}
+                  onMouseLeave={this.toggleHoverState.bind(this)}
+                  className="icon ion-md-people"
+                >
+                  <Users>{this.state.liveUsers}</Users>
+                </ChatButton>
+                {this.state.isHovering ? <LiveUsers /> : undefined}
+                <TitleWrapper>
+                  <BackButton className="icon ion-md-arrow-round-back"></BackButton>
+                  <Title
+                    name="title"
+                    value={
+                      this.state.content
+                        ? this.state.content["E"]["4"]["text"]
+                        : undefined
+                    }
+                    placeholder="무엇에 대한 만다라트 차트인가요?"
+                    onChange={this.handleChange.bind(this)}
+                  />
+                </TitleWrapper>
+              </Header>
+              <Chart
+                content={this.state.content ? this.state.content : undefined}
+                updateMainContent={this.updateMainContent}
+                themeColor={this.makeColor(1)}
+              />
+            </Container>
+          );
+        }}
+      </Mutation>
     );
   }
 }
