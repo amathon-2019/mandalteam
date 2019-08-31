@@ -290,6 +290,11 @@ StyleCopReport.xml
 *.tlh
 *.tmp
 *.tmp_proj
+### Node ###
+# Logs
+gql_server/.venv
+.idea
+logs
 *.log
 *.vspscc
 *.vssscc

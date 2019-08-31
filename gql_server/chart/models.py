@@ -17,8 +17,10 @@ class Chart(HashidModel, models.Model):
     @property
     def data(self):
         if not self._ddb:
-            data = list(ChartData.query(hash_key=self.hashid))
-            self._ddb = data[0] if data else None
+            try:
+                self._ddb = ChartData.get(self.hashid)
+            except ChartData.DoesNotExist:
+                self._ddb = None
         return self._ddb
 
     @classmethod
@@ -27,3 +29,8 @@ class Chart(HashidModel, models.Model):
         chart.save()
         chart._ddb = ChartData.default_chart(chart.hashid, name)
         return chart
+
+    @classmethod
+    def get_index(cls, location):
+        x, y = location
+        return (ChartData.subs.index(x), int(y))
