@@ -10,13 +10,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  border: 1px solid black;
+  border: 1px solid #999;
 `;
 
 const Row = styled.div`
   width: 100%;
   height: 300px;
-
   display: flex;
 `;
 
