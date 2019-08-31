@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import UneditableContent from "./UneditableContent";
-import EditableContent from "./EditableContent";
 
 const Container = styled.div`
   width: 33.3333%;
@@ -23,33 +22,65 @@ class Main extends Component {
       <Container>
         <Row>
           <UneditableContent
-            content={this.props.subContents[1]}
+            area={
+              this.props.content && this.props.content["1"]
+                ? this.props.contents["1"]
+                : undefined
+            }
           ></UneditableContent>
           <UneditableContent
-            content={this.props.subContents[2]}
+            area={
+              this.props.content && this.props.content["2"]
+                ? this.props.content["2"]
+                : undefined
+            }
           ></UneditableContent>
           <UneditableContent
-            content={this.props.subContents[3]}
+            area={
+              this.props.content && this.props.content["3"]
+                ? this.props.content["3"]
+                : undefined
+            }
           ></UneditableContent>
         </Row>
         <Row>
           <UneditableContent
-            content={this.props.subContents[4]}
+            area={
+              this.props.content && this.props.content["4"]
+                ? this.props.content["4"]
+                : undefined
+            }
           ></UneditableContent>
           <UneditableContent title={this.props.title} />
           <UneditableContent
-            content={this.props.subContents[6]}
+            area={
+              this.props.content && this.props.content["6"]
+                ? this.props.content["6"]
+                : undefined
+            }
           ></UneditableContent>
         </Row>
         <Row>
           <UneditableContent
-            content={this.props.subContents[7]}
+            area={
+              this.props.content && this.props.content["7"]
+                ? this.props.content["7"]
+                : undefined
+            }
           ></UneditableContent>
           <UneditableContent
-            content={this.props.subContents[8]}
+            area={
+              this.props.content && this.props.content["8"]
+                ? this.props.content["8"]
+                : undefined
+            }
           ></UneditableContent>
           <UneditableContent
-            content={this.props.subContents[9]}
+            area={
+              this.props.content && this.props.content["9"]
+                ? this.props.content["9"]
+                : undefined
+            }
           ></UneditableContent>
         </Row>
       </Container>

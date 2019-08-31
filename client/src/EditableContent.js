@@ -5,7 +5,7 @@ const Container = styled.div`
   width: 33.3333%;
   heigth: 100%;
   font-size: 1rem;
-  line-height: ${(prop) => prop.height}px;
+  line-height: ${prop => prop.height}px;
 `;
 
 class UneditableContent extends Component {
@@ -23,11 +23,20 @@ class UneditableContent extends Component {
   }
 
   componentDidMount() {
-    this.setState((prev) => prev.height = this.Container.offsetHeight);
+    this.setState(prev => (prev.height = this.Container.offsetHeight));
   }
 
   render() {
-    return <Container contentEditable="true" onChange={this.handleChange.bind(this)} height={this.state.height} ref={(ref) => this.Container = ref}></Container>;
+    return (
+      <Container
+        onChange={this.handleChange.bind(this)}
+        value={
+          this.props.area && this.props.area.text
+            ? this.props.area.text
+            : undefined
+        }
+      ></Container>
+    );
   }
 }
 

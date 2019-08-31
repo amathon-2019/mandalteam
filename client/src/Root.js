@@ -52,23 +52,87 @@ class Root extends Component {
     return (
       <Container size={this.state.containerSize}>
         <Row>
-          <Sub id="1" updateMainContent={this.updateMainContent} />
-          <Sub id="2" updateMainContent={this.updateMainContent} />
-          <Sub id="3" updateMainContent={this.updateMainContent} />
+          <Sub
+            content={
+              this.props.content && this.props.content["A"]
+                ? this.props.content["A"]
+                : undefined
+            }
+            id="1"
+            updateMainContent={this.updateMainContent}
+          />
+          <Sub
+            content={
+              this.props.content && this.props.content["B"]
+                ? this.props.content["B"]
+                : undefined
+            }
+            id="2"
+            updateMainContent={this.updateMainContent}
+          />
+          <Sub
+            content={
+              this.props.content && this.props.content["C"]
+                ? this.props.content["C"]
+                : undefined
+            }
+            id="3"
+            updateMainContent={this.updateMainContent}
+          />
         </Row>
         <Row>
-          <Sub id="4" updateMainContent={this.updateMainContent} />
+          <Sub
+            content={
+              this.props.content && this.props.content["D"]
+                ? this.props.content["D"]
+                : undefined
+            }
+            id="4"
+            updateMainContent={this.updateMainContent}
+          />
           <Main
             title={this.props.title}
             id="main"
             subContents={this.state.subContents}
           />
-          <Sub id="6" updateMainContent={this.updateMainContent} />
+          <Sub
+            content={
+              this.props.content && this.props.content["F"]
+                ? this.props.content["F"]
+                : undefined
+            }
+            id="6"
+            updateMainContent={this.updateMainContent}
+          />
         </Row>
         <Row>
-          <Sub id="7" updateMainContent={this.updateMainContent} />
-          <Sub id="8" updateMainContent={this.updateMainContent} />
-          <Sub id="9" updateMainContent={this.updateMainContent} />
+          <Sub
+            content={
+              this.props.content && this.props.content["G"]
+                ? this.props.content["G"]
+                : undefined
+            }
+            id="7"
+            updateMainContent={this.updateMainContent}
+          />
+          <Sub
+            content={
+              this.props.content && this.props.content["H"]
+                ? this.props.content["H"]
+                : undefined
+            }
+            id="8"
+            updateMainContent={this.updateMainContent}
+          />
+          <Sub
+            content={
+              this.props.content && this.props.content["I"]
+                ? this.props.content["I"]
+                : undefined
+            }
+            id="9"
+            updateMainContent={this.updateMainContent}
+          />
         </Row>
       </Container>
     );

@@ -24,8 +24,42 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: ""
+      title: "",
+      // content
+      // {
+      //   "A": {
+      //     "1": {
+      //       "text": "asdfasfd"
+      //     },
+      //     "2": {
+      //       "text": "asdfasfd"
+      //     }
+      //   },
+      //   "B": {
+      //     "1": {
+      //       "text": "asdfasfd"
+      //     },
+      //     "2": {
+      //       "text": "asdfasfd"
+      //     }
+      //   }
+      // }
+      content: undefined
     };
+  }
+
+  componentDidMount() {
+    const url = "/json";
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        this.setState({
+          content: data,
+          title: data.E[5].text
+        });
+      });
   }
 
   handleChange(e) {
@@ -42,7 +76,10 @@ class App extends React.Component {
           value={this.state.title}
           onChange={this.handleChange.bind(this)}
         />
-        <Root title={this.state.title} />
+        <Root
+          title={this.state.title}
+          content={this.state.content ? this.state.content : undefined}
+        />
       </Container>
     );
   }

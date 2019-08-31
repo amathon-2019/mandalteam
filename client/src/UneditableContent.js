@@ -14,7 +14,7 @@ class UneditableContent extends Component {
           ? this.props.title
           : this.props.content
           ? this.props.content
-          : ""}
+          : undefined}
       </Container>
     );
   }
