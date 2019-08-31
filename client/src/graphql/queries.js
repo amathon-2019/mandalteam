@@ -1,2 +1,17 @@
 import gql from "graphql-tag";
-import { Query } from "react-apollo";
+
+export const recentlyChartsQuery = gql`
+	query recentlyCharts {
+		allCharts(first: 10) {
+			edges {
+				node {
+					master {
+						username
+					}
+					id
+					name
+				}
+			}
+		}
+	}
+`;
