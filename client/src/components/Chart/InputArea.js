@@ -47,29 +47,29 @@ class InputArea extends Component {
   convertGridToNumber(grid) {
     switch (grid) {
       case "A":
-        return 1;
+        return 0;
       case "B":
-        return 2;
+        return 1;
       case "C":
-        return 3;
+        return 2;
       case "D":
-        return 4;
+        return 3;
       case "E":
-        return 5;
+        return 4;
       case "F":
-        return 6;
+        return 5;
       case "G":
-        return 7;
+        return 6;
       case "H":
-        return 8;
+        return 7;
       case "I":
-        return 9;
+        return 8;
     }
   }
 
   resizeScroll() {
     this.TextBox.style.height = "1px";
-    this.TextBox.style.height = this.TextBox.scrollHeight + 1 + 'px';
+    this.TextBox.style.height = this.TextBox.scrollHeight + 1 + "px";
   }
 
   handleChange(e) {
@@ -89,7 +89,7 @@ class InputArea extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       this.resizeScroll();
     });
     this.resizeScroll();
@@ -101,16 +101,17 @@ class InputArea extends Component {
 
   render() {
     return (
-      <Container
-        background={this.state.background}>
+      <Container background={this.state.background}>
         <TextBox
           onChange={this.handleChange.bind(this)}
           ref={ref => (this.TextBox = ref)}
-          value={this.props.area && this.props.area.text
-            ? this.props.area.text
-            : undefined}
-          disabled={this.props.editable ? 'disabled' : ''}>
-        </TextBox>
+          value={
+            this.props.area && this.props.area.text
+              ? this.props.area.text
+              : undefined
+          }
+          disabled={this.props.editable ? "disabled" : ""}
+        ></TextBox>
       </Container>
     );
   }

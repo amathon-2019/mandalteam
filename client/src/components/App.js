@@ -103,16 +103,30 @@ class App extends React.Component {
       .then(res => res.json())
       .then(async data => {
         console.log(data);
-        await this.setState({
-          content: data,
-          title: data.E[5].text
+        let newContent = {};
+
+        data.map(grid => {
+          newContent[grid.pos] = {};
+          if (grid.data && grid.data.length > 0) {
+            grid.data.forEach(area => {
+              newContent[grid.pos][area.pos] = {};
+              newContent[grid.pos][area.pos]["text"] = area.text;
+            });
+          }
         });
+
+        await this.setState({
+          content: newContent,
+          title: newContent.E[5].text
+        });
+
+        console.log(this.state.content);
       })
       .catch(err => {
         let newContent = this.state.content;
         newContent = {};
         newContent["E"] = {};
-        newContent["E"]["5"] = {};
+        newContent["E"]["4"] = {};
 
         this.setState({
           content: newContent
@@ -166,11 +180,11 @@ class App extends React.Component {
     if (!newContent["E"]) {
       newContent["E"] = {};
     }
-    if (!newContent["E"]["5"]) {
-      newContent["E"]["5"] = {};
+    if (!newContent["E"]["4"]) {
+      newContent["E"]["4"] = {};
     }
-    newContent["E"]["5"]["text"] = e.target.value;
-    console.log(newContent["E"]["5"]["text"]);
+    newContent["E"]["4"]["text"] = e.target.value;
+    console.log(newContent["E"]["4"]["text"]);
     await this.setState({
       content: newContent
     });
@@ -185,11 +199,14 @@ class App extends React.Component {
   }
 
   makeColor(id) {
-    let hash = crypto.createHash('md5').update(id.toString()).digest('hex')
-    ,   color = parseInt(hash.slice(0, 2), 16);
+    let hash = crypto
+        .createHash("md5")
+        .update(id.toString())
+        .digest("hex"),
+      color = parseInt(hash.slice(0, 2), 16);
     return {
-      major: 'hsl(' + color + ', 21%, 60%)',
-      minor: 'hsl(' + color + ', 27%, 67%)'
+      major: "hsl(" + color + ", 21%, 60%)",
+      minor: "hsl(" + color + ", 27%, 67%)"
     };
   }
 
@@ -201,7 +218,8 @@ class App extends React.Component {
             name="live-users"
             onMouseEnter={this.toggleHoverState.bind(this)}
             onMouseLeave={this.toggleHoverState.bind(this)}
-            className="icon ion-md-people">
+            className="icon ion-md-people"
+          >
             <Users>{this.state.liveUsers}</Users>
           </ChatButton>
           {this.state.isHovering ? <LiveUsers /> : undefined}
@@ -211,7 +229,7 @@ class App extends React.Component {
               name="title"
               value={
                 this.state.content
-                  ? this.state.content["E"]["5"]["text"]
+                  ? this.state.content["E"]["4"]["text"]
                   : undefined
               }
               placeholder="무엇에 대한 만다라트 차트인가요?"
