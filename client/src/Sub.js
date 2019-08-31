@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import ContentContainer from "./ContentContainer";
 
 const Container = styled.div`
   width: 33%;
@@ -15,7 +16,7 @@ const Row = styled.div`
   display: flex;
 `;
 
-const Content = styled.div`
+const Content = styled(ContentContainer)`
   width: 33%;
   heigth: 100%;
 
