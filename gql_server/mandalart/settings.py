@@ -35,9 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-'storages',
+    'storages',
     'corsheaders',
     'graphene_django',
+
+    'base',
+    'chart'
 ]
 
 MIDDLEWARE = [

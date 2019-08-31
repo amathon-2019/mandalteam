@@ -6,13 +6,7 @@ from gql_server.base.models import User
 
 
 class Chart(models.Model):
+    member = models.ManyToManyField(User)  # Member
     master = models.ForeignKey(User, related_name='own_charts')
     dynamo_id = models.CharField(max_length=200)
 
-
-class ChartData(Model):
-
-
-    class Meta:
-        table_name = 'chartdata'
-        region = "TODO"

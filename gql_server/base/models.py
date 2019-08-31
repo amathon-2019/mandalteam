@@ -6,8 +6,6 @@ from gql_server.chart.models import Chart
 
 
 class User(AbstractUser):
-    chart = models.ManyToManyField(Chart) # Member
-
     @property
     def user_id(self):
         if self.is_anonymous:
