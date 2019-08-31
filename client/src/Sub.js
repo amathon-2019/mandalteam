@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import EditableContent from "./EditableContent";
 
 const Container = styled.div`
   width: 33%;
@@ -15,31 +16,28 @@ const Row = styled.div`
   display: flex;
 `;
 
-const Content = styled.div`
-  width: 33%;
-  heigth: 100%;
-
-  border: 1px solid black;
-`;
-
 class Sub extends Component {
   render() {
     return (
       <Container>
         <Row>
-          <Content contentEditable="true" />
-          <Content contentEditable="true" />
-          <Content contentEditable="true" />
+          <EditableContent />
+          <EditableContent />
+          <EditableContent />
         </Row>
         <Row>
-          <Content contentEditable="true" />
-          <Content contentEditable="true" />
-          <Content contentEditable="true" />
+          <EditableContent />
+          <EditableContent
+            id={this.props.id}
+            name="sub_main"
+            updateMainContent={this.props.updateMainContent}
+          />
+          <EditableContent />
         </Row>
         <Row>
-          <Content contentEditable="true" />
-          <Content contentEditable="true" />
-          <Content contentEditable="true" />
+          <EditableContent />
+          <EditableContent />
+          <EditableContent />
         </Row>
       </Container>
     );
