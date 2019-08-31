@@ -46,6 +46,8 @@ provider:
 
 package:
   individually: true
+  include:
+    - static/**
   exclude:
     - .idea/**
     - .venv/**
