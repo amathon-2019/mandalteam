@@ -1,4 +1,5 @@
 @import "https://cdn.jsdelivr.net/npm/spoqa-han-sans@2.1.2/css/SpoqaHanSans-kr.css";
+@import "https://cdn.jsdelivr.net/npm/ionicons@4.6.3/dist/css/ionicons.min.css";
 
 * {
   box-sizing: border-box;
@@ -8,8 +9,4 @@
 html, body {
   margin: 0;
   padding: 0;
-}
-
-.App {
-  text-align: center;
 }
