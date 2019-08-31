@@ -18,13 +18,13 @@ class SubChart(MapAttribute):
 
 
 class ChartData(Model):
-    subs = ["A", "B", "C", "D", "E", "F", "G", "H"]
+    subs = ["A", "B", "C", "D", "E", "F", "G", "H","I"]
 
     class Meta:
         table_name = f"{STAGE}_chart_db"
         region = os.environ.get("AWS_REGION", 'ap-northeast-2')
-        if is_local:
-            host = "http://localhost:8888"
+        # if is_local:
+        #     host = "http://localhost:8888"
 
     hashid = UnicodeAttribute(hash_key=True)
     name = UnicodeAttribute(default="mandalart chart")

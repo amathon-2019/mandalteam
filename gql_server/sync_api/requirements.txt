@@ -6,3 +6,4 @@ requests==2.20.1
 pynamodb==3.4.1
 boto3==1.9.220
 botocore==1.12.220
+dictdiffer==0.8.0

@@ -1,5 +1,8 @@
+import json
 import sys
+
 sys.path.append("/opt")
+import boto3
 import os
 from pynamodb.attributes import UnicodeAttribute, UTCDateTimeAttribute
 from pynamodb.models import Model
@@ -24,6 +27,12 @@ class ChartIndex(GlobalSecondaryIndex):
     # Note that this attribute must also exist in the model
     chart = UnicodeAttribute(hash_key=True)
 
+def get_domain(event):
+    _context = event["requestContext"]
+    domain = _context["domainName"]
+    stage = _context["stage"]
+    return (domain,stage)
+
 class SessionDB(Model):
     class Meta:
         table_name = f"{STAGE}_session_db"
@@ -34,3 +43,13 @@ class SessionDB(Model):
     connection_id = UnicodeAttribute(hash_key=True)
     chart = UnicodeAttribute(null=True)
     createdAt = UTCDateTimeAttribute()
+    chart_index = ChartIndex()
+
+    def _send_msg(self,domain,stage,data):
+        cli = boto3.client("apigatewaymanagementapi", endpoint_url=f"https://{domain}/{stage}")
+        cli.post_to_connection(ConnectionId=self.connection_id, Data=json.dumps(data))
+    def send_msg(self,event,data):
+        domain,stage = get_domain(event)
+        self._send_msg(domain,stage,data)
+
+

@@ -87,6 +87,8 @@ functions:
           route: "init"
       - websocket:
           route: "edit"
+      - websocket:
+          route: "ping"
     tags:
       Service: ${self:service}
       Stage: ${self:provider.stage}

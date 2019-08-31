@@ -34,3 +34,13 @@ class Chart(HashidModel, models.Model):
     def get_index(cls, location):
         x, y = location
         return (ChartData.subs.index(x), int(y))
+
+    def delete(self, using=None, keep_parents=False):
+        data = self.data
+        result = super().delete(using, keep_parents)
+        try:
+            data.delete()
+        except Exception:
+            pass
+        return result
+
