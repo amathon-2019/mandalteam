@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const Container = styled.input`
+const Container = styled.div`
   width: 33.3333%;
   height: 100%;
   border: 0;
@@ -46,13 +46,13 @@ class UneditableContent extends Component {
     this.props.updateMainContent(
       this.props.grid,
       this.props.num,
-      e.target.value
+      e.target.innerHTML
     );
     if (this.props.name === "sub_main") {
       this.props.updateMainContent(
         "E",
         this.convertGridToNumber(this.props.grid),
-        e.target.value
+        e.target.innerHTML
       );
     }
   }
@@ -64,7 +64,8 @@ class UneditableContent extends Component {
   render() {
     return (
       <Container
-        onChange={this.handleChange.bind(this)}
+        contentEditable="true"
+        onInput={this.handleChange.bind(this)}
         ref={ref => (this.Container = ref)}
         height={this.state.height}
         background={this.state.background}

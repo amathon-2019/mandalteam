@@ -22,8 +22,6 @@ class UneditableContent extends Component {
     this.setState((prev) => prev.height = this.Container.offsetHeight);
   }
 
-  handleChange(e) {}
-
   render() {
     return (
       <Container
