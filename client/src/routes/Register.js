@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { Mutation } from "react-apollo";
 
-const Lobby = () => {
-  return (
-    <div>
-      회원가입
-    </div>
-  );
+class Register extends Component {
+	render() {
+		return (
+			<div>
+				qwe
+			</div>
+		);
+	}
 };
 
-export default Lobby;
+export default Register;

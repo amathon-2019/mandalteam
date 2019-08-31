@@ -239,7 +239,7 @@ class App extends React.Component {
               value={
                 this.state.content
                   ? this.state.content["E"]["4"]["text"]
-                  : undefined
+                  : ''
               }
               placeholder="무엇에 대한 만다라트 차트인가요?"
               onChange={this.handleChange.bind(this)}
