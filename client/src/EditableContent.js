@@ -9,7 +9,6 @@ const Container = styled.div`
   background: ${prop => prop.background};
   font-size: 1rem;
   overflow: auto;
-  resize: none;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
     width: 2px;

@@ -91,6 +91,7 @@ class Root extends Component {
             }
             grid="E"
             updateMainContent={this.props.updateMainContent}
+            themeColor={this.props.themeColor}
           />
           <Sub
             content={

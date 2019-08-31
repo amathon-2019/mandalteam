@@ -9,7 +9,6 @@ const Container = styled.div`
   background: ${prop => prop.background};
   font-size: 1rem;
   overflow: auto;
-  resize: none;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
     width: 2px;
@@ -63,7 +62,8 @@ class UneditableContent extends Component {
           ref={ref => (this.TextBox = ref)}
           value={this.props.area && this.props.area.text
             ? this.props.area.text
-            : undefined}>
+            : undefined}
+          disabled="disabled">
         </TextBox>
       </Container>
     );

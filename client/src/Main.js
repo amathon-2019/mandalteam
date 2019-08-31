@@ -20,14 +20,14 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      background: this.props.startBackground
+      themeColor: this.props.themeColor,
+      background: this.props.themeColor.minor
     };
   }
 
   nextBackground() {
     let nowBg = this.state.background;
-    if (!nowBg) nowBg = '#fff';
-    this.state.background = nowBg == '#f6f6f6' ? '#fff' : '#f6f6f6';
+    this.state.background = nowBg === this.state.themeColor.major ? this.state.themeColor.minor : this.state.themeColor.major;
     return nowBg;
   }
 

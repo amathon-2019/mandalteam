@@ -4,6 +4,7 @@ import Root from "./Root";
 import styled from "styled-components";
 import socketIOClient from "socket.io-client";
 import LiveUsers from "./LiveUsers";
+import crypto from "crypto";
 
 const Container = styled.div`
   width: 100%;
@@ -182,6 +183,15 @@ class App extends React.Component {
     });
   }
 
+  makeColor(id) {
+    let hash = crypto.createHash('md5').update(id.toString()).digest('hex')
+    ,   color = parseInt(hash.slice(0, 2), 16);
+    return {
+      major: 'hsl(' + color + ', 21%, 60%)',
+      minor: 'hsl(' + color + ', 27%, 67%)'
+    };
+  }
+
   render() {
     return (
       <Container>
@@ -211,6 +221,7 @@ class App extends React.Component {
         <Root
           content={this.state.content ? this.state.content : undefined}
           updateMainContent={this.updateMainContent}
+          themeColor={this.makeColor(1)}
         />
       </Container>
     );
