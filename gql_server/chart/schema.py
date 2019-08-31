@@ -137,7 +137,7 @@ class Query(graphene.ObjectType):
     all_charts = AllChartConnectionField
 
     def resolve_all_charts(self, info, *args, **kwargs):
-        return Chart.objects.all()
+        return Chart.objects.all().order_by("-id")
 
     def resolve_chart(self, info, id):
         _type, hashid = graphene.relay.Node.from_global_id(id)
