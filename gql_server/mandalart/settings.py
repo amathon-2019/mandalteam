@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTH_USER_MODEL = "base.User"
 ROOT_URLCONF = 'mandalart.urls'
 if STAGE in ['dev', 'local', 'test']:
     ALLOWED_HOSTS += ['127.0.0.1']
