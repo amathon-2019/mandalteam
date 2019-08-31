@@ -20,7 +20,7 @@ const Container = styled.div`
   }
 `;
 
-const TextBox = styled.div`
+const TextBox = styled.textarea`
   position: absolute;
   top: 50%;
   left: 0;
@@ -60,10 +60,10 @@ class UneditableContent extends Component {
       <Container
         background={this.state.background}>
         <TextBox
-          ref={ref => (this.TextBox = ref)}>
-          {this.props.area && this.props.area.text
+          ref={ref => (this.TextBox = ref)}
+          value={this.props.area && this.props.area.text
             ? this.props.area.text
-            : undefined}
+            : undefined}>
         </TextBox>
       </Container>
     );
