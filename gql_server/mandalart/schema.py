@@ -1,11 +1,12 @@
+import base.schema
+import chart.schema
 import graphene
 from graphene import relay
-
-import base.schema
 
 
 class Query(
     base.schema.Query,
+    chart.schema.Query,
     graphene.ObjectType,
 ):
     node = relay.Node.Field()
@@ -13,6 +14,7 @@ class Query(
 
 class Mutation(
     base.schema.Mutation,
+    chart.schema.Mutation,
     graphene.ObjectType
 ):
     pass

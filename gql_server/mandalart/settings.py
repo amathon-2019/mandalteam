@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-from .config import BASE_DIR, STAGE, conf_info
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
+from .config import BASE_DIR, STAGE, conf_info
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 
 # Quick-start development settings - unsuitable for production
@@ -88,7 +89,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mandalart.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -102,7 +102,6 @@ DATABASES = {
         'PORT': conf_info['db']['port'],
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -122,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-#TODO: 수정
+# TODO: 수정
 GRAPHENE = {
     'SCHEMA': 'mysite.myschema.schema',
     'MIDDLEWARE': [
@@ -182,11 +181,9 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800
 
 AWS_S3_REGION_NAME = REGION_NAME
 
-
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/[graphql].*'
-
 
 try:
     if STAGE == 'local':
