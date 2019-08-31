@@ -36,7 +36,7 @@ const TextBox = styled.textarea`
   }
 `;
 
-class UneditableContent extends Component {
+class InputArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,14 +44,59 @@ class UneditableContent extends Component {
     };
   }
 
-  componentDidMount() {
+  convertGridToNumber(grid) {
+    switch (grid) {
+      case "A":
+        return 1;
+      case "B":
+        return 2;
+      case "C":
+        return 3;
+      case "D":
+        return 4;
+      case "E":
+        return 5;
+      case "F":
+        return 6;
+      case "G":
+        return 7;
+      case "H":
+        return 8;
+      case "I":
+        return 9;
+    }
+  }
+
+  resizeScroll() {
     this.TextBox.style.height = "1px";
     this.TextBox.style.height = this.TextBox.scrollHeight + 1 + 'px';
   }
 
+  handleChange(e) {
+    this.resizeScroll();
+    this.props.updateMainContent(
+      this.props.grid,
+      this.props.num,
+      e.target.value
+    );
+    if (this.props.name === "sub_main") {
+      this.props.updateMainContent(
+        "E",
+        this.convertGridToNumber(this.props.grid),
+        e.target.value
+      );
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', () => {
+      this.resizeScroll();
+    });
+    this.resizeScroll();
+  }
+
   componentDidUpdate() {
-    this.TextBox.style.height = "1px";
-    this.TextBox.style.height = this.TextBox.scrollHeight + 1 + 'px';
+    this.resizeScroll();
   }
 
   render() {
@@ -59,15 +104,16 @@ class UneditableContent extends Component {
       <Container
         background={this.state.background}>
         <TextBox
+          onChange={this.handleChange.bind(this)}
           ref={ref => (this.TextBox = ref)}
           value={this.props.area && this.props.area.text
             ? this.props.area.text
             : undefined}
-          disabled="disabled">
+          disabled={this.props.editable ? 'disabled' : ''}>
         </TextBox>
       </Container>
     );
   }
 }
 
-export default UneditableContent;
+export default InputArea;

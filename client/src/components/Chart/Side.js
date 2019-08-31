@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import EditableContent from "./EditableContent";
+import InputArea from "./InputArea";
 
 const Container = styled.div`
   width: 33.3333%;
@@ -16,7 +16,7 @@ const Row = styled.div`
   display: flex;
 `;
 
-class Sub extends Component {
+class Side extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +35,7 @@ class Sub extends Component {
     return (
       <Container>
         <Row>
-          <EditableContent
+          <InputArea
             grid={this.props.grid}
             num={1}
             area={
@@ -46,7 +46,7 @@ class Sub extends Component {
             background={this.nextBackground()}
             updateMainContent={this.props.updateMainContent}
           />
-          <EditableContent
+          <InputArea
             grid={this.props.grid}
             num={2}
             area={
@@ -57,7 +57,7 @@ class Sub extends Component {
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
           />
-          <EditableContent
+          <InputArea
             grid={this.props.grid}
             num={3}
             area={
@@ -70,7 +70,7 @@ class Sub extends Component {
           />
         </Row>
         <Row>
-          <EditableContent
+          <InputArea
             grid={this.props.grid}
             num={4}
             area={
@@ -81,7 +81,7 @@ class Sub extends Component {
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
           />
-          <EditableContent
+          <InputArea
             grid={this.props.grid}
             num={5}
             area={
@@ -93,7 +93,7 @@ class Sub extends Component {
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
           />
-          <EditableContent
+          <InputArea
             grid={this.props.grid}
             num={6}
             area={
@@ -106,7 +106,7 @@ class Sub extends Component {
           />
         </Row>
         <Row>
-          <EditableContent
+          <InputArea
             grid={this.props.grid}
             num={7}
             area={
@@ -117,7 +117,7 @@ class Sub extends Component {
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
           />
-          <EditableContent
+          <InputArea
             grid={this.props.grid}
             num={8}
             area={
@@ -128,7 +128,7 @@ class Sub extends Component {
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
           />
-          <EditableContent
+          <InputArea
             grid={this.props.grid}
             num={9}
             area={
@@ -145,4 +145,4 @@ class Sub extends Component {
   }
 }
 
-export default Sub;
+export default Side;

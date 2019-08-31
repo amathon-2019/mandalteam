@@ -1,10 +1,11 @@
 import React from "react";
-import "./App.css";
-import Root from "./Root";
 import styled from "styled-components";
 import socketIOClient from "socket.io-client";
-import LiveUsers from "./LiveUsers";
 import crypto from "crypto";
+
+import "./App.css";
+import Chart from "./Chart/Chart";
+import LiveUsers from "./Header/LiveUsers";
 
 const Container = styled.div`
   width: 100%;
@@ -218,7 +219,7 @@ class App extends React.Component {
             />
           </TitleWrapper>
         </Header>
-        <Root
+        <Chart
           content={this.state.content ? this.state.content : undefined}
           updateMainContent={this.updateMainContent}
           themeColor={this.makeColor(1)}

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import UneditableContent from "./UneditableContent";
+import InputArea from "./InputArea";
 
 const Container = styled.div`
   width: 33.3333%;
@@ -16,7 +16,7 @@ const Row = styled.div`
   display: flex;
 `;
 
-class Main extends Component {
+class Center extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +35,7 @@ class Main extends Component {
     return (
       <Container>
         <Row>
-          <UneditableContent
+          <InputArea
             area={
               this.props.content && this.props.content["1"]
                 ? this.props.content["1"]
@@ -43,8 +43,9 @@ class Main extends Component {
             }
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
-          ></UneditableContent>
-          <UneditableContent
+            editable="true"
+          ></InputArea>
+          <InputArea
             area={
               this.props.content && this.props.content["2"]
                 ? this.props.content["2"]
@@ -52,8 +53,9 @@ class Main extends Component {
             }
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
-          ></UneditableContent>
-          <UneditableContent
+            editable="true"
+          ></InputArea>
+          <InputArea
             area={
               this.props.content && this.props.content["3"]
                 ? this.props.content["3"]
@@ -61,10 +63,11 @@ class Main extends Component {
             }
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
-          ></UneditableContent>
+            editable="true"
+          ></InputArea>
         </Row>
         <Row>
-          <UneditableContent
+          <InputArea
             area={
               this.props.content && this.props.content["4"]
                 ? this.props.content["4"]
@@ -72,8 +75,9 @@ class Main extends Component {
             }
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
-          ></UneditableContent>
-          <UneditableContent
+            editable="true"
+          ></InputArea>
+          <InputArea
             name="title"
             area={
               this.props.content && this.props.content["5"]
@@ -82,8 +86,9 @@ class Main extends Component {
             }
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
+            editable="true"
           />
-          <UneditableContent
+          <InputArea
             area={
               this.props.content && this.props.content["6"]
                 ? this.props.content["6"]
@@ -91,10 +96,11 @@ class Main extends Component {
             }
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
-          ></UneditableContent>
+            editable="true"
+          ></InputArea>
         </Row>
         <Row>
-          <UneditableContent
+          <InputArea
             area={
               this.props.content && this.props.content["7"]
                 ? this.props.content["7"]
@@ -102,8 +108,9 @@ class Main extends Component {
             }
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
-          ></UneditableContent>
-          <UneditableContent
+            editable="true"
+          ></InputArea>
+          <InputArea
             area={
               this.props.content && this.props.content["8"]
                 ? this.props.content["8"]
@@ -111,8 +118,9 @@ class Main extends Component {
             }
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
-          ></UneditableContent>
-          <UneditableContent
+            editable="true"
+          ></InputArea>
+          <InputArea
             area={
               this.props.content && this.props.content["9"]
                 ? this.props.content["9"]
@@ -120,11 +128,12 @@ class Main extends Component {
             }
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
-          ></UneditableContent>
+            editable="true"
+          ></InputArea>
         </Row>
       </Container>
     );
   }
 }
 
-export default Main;
+export default Center;

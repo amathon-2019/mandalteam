@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import Sub from "./Sub";
-import Main from "./Main";
+import Side from "./Side";
+import Center from "./Center";
 
 const Container = styled.div`
   width: ${prop => prop.size}px;
@@ -21,7 +21,7 @@ const Row = styled.div`
   display: flex;
 `;
 
-class Root extends Component {
+class Chart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,7 +43,7 @@ class Root extends Component {
     return (
       <Container size={this.state.containerSize}>
         <Row>
-          <Sub
+          <Side
             content={
               this.props.content && this.props.content["A"]
                 ? this.props.content["A"]
@@ -52,7 +52,7 @@ class Root extends Component {
             grid="A"
             updateMainContent={this.props.updateMainContent}
           />
-          <Sub
+          <Side
             content={
               this.props.content && this.props.content["B"]
                 ? this.props.content["B"]
@@ -62,7 +62,7 @@ class Root extends Component {
             updateMainContent={this.props.updateMainContent}
             startBackground="#f6f6f6"
           />
-          <Sub
+          <Side
             content={
               this.props.content && this.props.content["C"]
                 ? this.props.content["C"]
@@ -73,7 +73,7 @@ class Root extends Component {
           />
         </Row>
         <Row>
-          <Sub
+          <Side
             content={
               this.props.content && this.props.content["D"]
                 ? this.props.content["D"]
@@ -83,7 +83,7 @@ class Root extends Component {
             updateMainContent={this.props.updateMainContent}
             startBackground="#f6f6f6"
           />
-          <Main
+          <Center
             content={
               this.props.content && this.props.content["E"]
                 ? this.props.content["E"]
@@ -93,7 +93,7 @@ class Root extends Component {
             updateMainContent={this.props.updateMainContent}
             themeColor={this.props.themeColor}
           />
-          <Sub
+          <Side
             content={
               this.props.content && this.props.content["F"]
                 ? this.props.content["F"]
@@ -105,7 +105,7 @@ class Root extends Component {
           />
         </Row>
         <Row>
-          <Sub
+          <Side
             content={
               this.props.content && this.props.content["G"]
                 ? this.props.content["G"]
@@ -114,7 +114,7 @@ class Root extends Component {
             grid="G"
             updateMainContent={this.props.updateMainContent}
           />
-          <Sub
+          <Side
             content={
               this.props.content && this.props.content["H"]
                 ? this.props.content["H"]
@@ -124,7 +124,7 @@ class Root extends Component {
             updateMainContent={this.props.updateMainContent}
             startBackground="#f6f6f6"
           />
-          <Sub
+          <Side
             content={
               this.props.content && this.props.content["I"]
                 ? this.props.content["I"]
@@ -139,4 +139,4 @@ class Root extends Component {
   }
 }
 
-export default Root;
+export default Chart;
