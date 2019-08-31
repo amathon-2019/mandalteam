@@ -4,8 +4,8 @@ import Sub from "./Sub";
 import Main from "./Main";
 
 const Container = styled.div`
-  width: ${(prop) => prop.size}px;
-  height: ${(prop) => prop.size}px;
+  width: ${prop => prop.size}px;
+  height: ${prop => prop.size}px;
   margin: 0 auto;
 
   border: solid #999;
@@ -25,26 +25,17 @@ class Root extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      subContents: [null, null, null, null, null, null, null, null, null, null],
-      main: <Main />,
       containerSize: Math.min(window.innerWidth, window.innerHeight) - 100
     };
-    this.updateMainContent = this.updateMainContent.bind(this);
   }
 
   componentDidMount() {
-    window.addEventListener('resize', () => {
-      this.setState(prev => prev.containerSize = Math.min(window.innerWidth, window.innerHeight) - 100);
-    });
-  }
-
-  updateMainContent(sub_id, content) {
-    console.log(sub_id, content);
-    const newSubContents = this.state.subContents;
-    newSubContents[sub_id] = content;
-
-    this.setState({
-      subContents: newSubContents
+    window.addEventListener("resize", () => {
+      this.setState(
+        prev =>
+          (prev.containerSize =
+            Math.min(window.innerWidth, window.innerHeight) - 100)
+      );
     });
   }
 
@@ -52,23 +43,95 @@ class Root extends Component {
     return (
       <Container size={this.state.containerSize}>
         <Row>
-          <Sub id="1" updateMainContent={this.updateMainContent} />
-          <Sub id="2" updateMainContent={this.updateMainContent} startBackground="#f9f9f9" />
-          <Sub id="3" updateMainContent={this.updateMainContent} />
-        </Row>
-        <Row>
-          <Sub id="4" updateMainContent={this.updateMainContent} startBackground="#f9f9f9" />
-          <Main
-            title={this.props.title}
-            id="main"
-            subContents={this.state.subContents}
+          <Sub
+            content={
+              this.props.content && this.props.content["A"]
+                ? this.props.content["A"]
+                : undefined
+            }
+            grid="A"
+            updateMainContent={this.props.updateMainContent}
           />
-          <Sub id="6" updateMainContent={this.updateMainContent} startBackground="#f9f9f9" />
+          <Sub
+            content={
+              this.props.content && this.props.content["B"]
+                ? this.props.content["B"]
+                : undefined
+            }
+            grid="B"
+            updateMainContent={this.props.updateMainContent}
+            startBackground="#f9f9f9"
+          />
+          <Sub
+            content={
+              this.props.content && this.props.content["C"]
+                ? this.props.content["C"]
+                : undefined
+            }
+            grid="C"
+            updateMainContent={this.props.updateMainContent}
+          />
         </Row>
         <Row>
-          <Sub id="7" updateMainContent={this.updateMainContent} />
-          <Sub id="8" updateMainContent={this.updateMainContent} startBackground="#f9f9f9" />
-          <Sub id="9" updateMainContent={this.updateMainContent} />
+          <Sub
+            content={
+              this.props.content && this.props.content["D"]
+                ? this.props.content["D"]
+                : undefined
+            }
+            grid="D"
+            updateMainContent={this.props.updateMainContent}
+            startBackground="#f9f9f9"
+          />
+          <Main
+            content={
+              this.props.content && this.props.content["E"]
+                ? this.props.content["E"]
+                : undefined
+            }
+            grid="E"
+            updateMainContent={this.props.updateMainContent}
+          />
+          <Sub
+            content={
+              this.props.content && this.props.content["F"]
+                ? this.props.content["F"]
+                : undefined
+            }
+            grid="F"
+            updateMainContent={this.props.updateMainContent}
+            startBackground="#f9f9f9"
+          />
+        </Row>
+        <Row>
+          <Sub
+            content={
+              this.props.content && this.props.content["G"]
+                ? this.props.content["G"]
+                : undefined
+            }
+            grid="G"
+            updateMainContent={this.props.updateMainContent}
+          />
+          <Sub
+            content={
+              this.props.content && this.props.content["H"]
+                ? this.props.content["H"]
+                : undefined
+            }
+            grid="H"
+            updateMainContent={this.props.updateMainContent}
+            startBackground="#f9f9f9"
+          />
+          <Sub
+            content={
+              this.props.content && this.props.content["I"]
+                ? this.props.content["I"]
+                : undefined
+            }
+            grid="I"
+            updateMainContent={this.props.updateMainContent}
+          />
         </Row>
       </Container>
     );

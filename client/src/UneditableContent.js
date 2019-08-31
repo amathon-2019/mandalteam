@@ -22,15 +22,17 @@ class UneditableContent extends Component {
     this.setState((prev) => prev.height = this.Container.offsetHeight);
   }
 
+  handleChange(e) {}
+
   render() {
     return (
-      <Container height={this.state.height} ref={(ref) => this.Container = ref}
-      background={this.state.background}>
-        {this.props.title
-          ? this.props.title
-          : this.props.content
-          ? this.props.content
-          : ""}
+      <Container
+        height={this.state.height}
+        ref={(ref) => this.Container = ref}
+        background={this.state.background}>
+        {this.props.area && this.props.area.text
+          ? this.props.area.text
+          : undefined}
       </Container>
     );
   }

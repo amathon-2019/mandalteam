@@ -50,13 +50,66 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: ""
+      title: "",
+      // content
+      // {
+      //   "A": {
+      //     "1": {
+      //       "text": "asdfasfd"
+      //     },
+      //     "2": {
+      //       "text": "asdfasfd"
+      //     }
+      //   },
+      //   "B": {
+      //     "1": {
+      //       "text": "asdfasfd"
+      //     },
+      //     "2": {
+      //       "text": "asdfasfd"
+      //     }
+      //   }
+      // }
+      content: undefined
     };
+    this.updateMainContent = this.updateMainContent.bind(this);
+  }
+
+  componentDidMount() {
+    const url = "/json";
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        this.setState({
+          content: data,
+          title: data.E[5].text
+        });
+      });
+  }
+
+  updateMainContent(grid, num, text) {
+    console.log(grid, num, text);
+    const newContent = this.state.content;
+    if (!newContent[grid]) {
+      newContent[grid] = {};
+    }
+    if (!newContent[grid][num]) {
+      newContent[grid][num] = {};
+    }
+    newContent[grid][num]["text"] = text;
+
+    this.setState({
+      content: newContent
+    });
   }
 
   handleChange(e) {
+    const newContent = this.state.content;
+    newContent["E"]["5"]["text"] = e.target.value;
     this.setState({
-      [e.target.name]: e.target.value
+      content: newContent
     });
   }
 
@@ -69,13 +122,20 @@ class App extends React.Component {
             <BackButton className="icon ion-md-arrow-round-back"></BackButton>
             <Title
               name="title"
-              value={this.state.title}
+              value={
+                this.state.content
+                  ? this.state.content["E"]["5"]["text"]
+                  : undefined
+              }
               placeholder="무엇에 대한 만다라트 차트인가요?"
               onChange={this.handleChange.bind(this)}
             />
           </TitleWrapper>
         </Header>
-        <Root title={this.state.title} />
+        <Root
+          content={this.state.content ? this.state.content : undefined}
+          updateMainContent={this.updateMainContent}
+        />
       </Container>
     );
   }

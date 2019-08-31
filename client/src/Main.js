@@ -35,19 +35,92 @@ class Main extends Component {
     return (
       <Container>
         <Row>
-          <UneditableContent content={this.props.subContents[1]} background={this.nextBackground()} />
-          <UneditableContent content={this.props.subContents[2]} background={this.nextBackground()} />
-          <UneditableContent content={this.props.subContents[3]} background={this.nextBackground()} />
+          <UneditableContent
+            area={
+              this.props.content && this.props.content["1"]
+                ? this.props.content["1"]
+                : undefined
+            }
+            updateMainContent={this.props.updateMainContent}
+            background={this.nextBackground()}
+          ></UneditableContent>
+          <UneditableContent
+            area={
+              this.props.content && this.props.content["2"]
+                ? this.props.content["2"]
+                : undefined
+            }
+            updateMainContent={this.props.updateMainContent}
+            background={this.nextBackground()}
+          ></UneditableContent>
+          <UneditableContent
+            area={
+              this.props.content && this.props.content["3"]
+                ? this.props.content["3"]
+                : undefined
+            }
+            updateMainContent={this.props.updateMainContent}
+            background={this.nextBackground()}
+          ></UneditableContent>
         </Row>
         <Row>
-          <UneditableContent content={this.props.subContents[4]} background={this.nextBackground()} />
-          <UneditableContent title={this.props.title} background={this.nextBackground()} />
-          <UneditableContent content={this.props.subContents[6]} background={this.nextBackground()} />
+          <UneditableContent
+            area={
+              this.props.content && this.props.content["4"]
+                ? this.props.content["4"]
+                : undefined
+            }
+            updateMainContent={this.props.updateMainContent}
+            background={this.nextBackground()}
+          ></UneditableContent>
+          <UneditableContent
+            name="title"
+            area={
+              this.props.content && this.props.content["5"]
+                ? this.props.content["5"]
+                : undefined
+            }
+            updateMainContent={this.props.updateMainContent}
+            background={this.nextBackground()}
+          />
+          <UneditableContent
+            area={
+              this.props.content && this.props.content["6"]
+                ? this.props.content["6"]
+                : undefined
+            }
+            updateMainContent={this.props.updateMainContent}
+            background={this.nextBackground()}
+          ></UneditableContent>
         </Row>
         <Row>
-          <UneditableContent content={this.props.subContents[7]} background={this.nextBackground()} />
-          <UneditableContent content={this.props.subContents[8]} background={this.nextBackground()} />
-          <UneditableContent content={this.props.subContents[9]} background={this.nextBackground()} />
+          <UneditableContent
+            area={
+              this.props.content && this.props.content["7"]
+                ? this.props.content["7"]
+                : undefined
+            }
+            updateMainContent={this.props.updateMainContent}
+            background={this.nextBackground()}
+          ></UneditableContent>
+          <UneditableContent
+            area={
+              this.props.content && this.props.content["8"]
+                ? this.props.content["8"]
+                : undefined
+            }
+            updateMainContent={this.props.updateMainContent}
+            background={this.nextBackground()}
+          ></UneditableContent>
+          <UneditableContent
+            area={
+              this.props.content && this.props.content["9"]
+                ? this.props.content["9"]
+                : undefined
+            }
+            updateMainContent={this.props.updateMainContent}
+            background={this.nextBackground()}
+          ></UneditableContent>
         </Row>
       </Container>
     );
