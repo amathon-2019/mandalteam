@@ -12,31 +12,119 @@ app.use(morgan("dev"));
 
 app.get("/json", (req, res, next) => {
   // 더미 JSON 을 리턴해 준다.
-  const content = {
-    A: {
-      "1": {
-        text: "A 첫 번째"
-      },
-      "2": {
-        text: "A 두 번째"
-      }
+  const content = [
+    {
+      pos: "A",
+      data: [
+        {
+          pos: 0,
+          text: "test"
+        },
+        {
+          pos: 1,
+          text: "test"
+        }
+      ]
     },
-    B: {
-      "1": {
-        text: "B 첫 번째"
-      },
-      "2": {
-        text: "B 두 번째"
-      }
+    {
+      pos: "B",
+      data: [
+        {
+          pos: 0,
+          text: "test"
+        },
+        {
+          pos: 1,
+          text: "test"
+        }
+      ]
     },
-    E: {
-      "5": {
-        text: "만다라트 타이틀"
-      }
+    {
+      pos: "C",
+      data: [
+        {
+          pos: 0,
+          text: "test"
+        },
+        {
+          pos: 1,
+          text: "test"
+        }
+      ]
+    },
+    {
+      pos: "D",
+      data: [
+        {
+          pos: 0,
+          text: "test"
+        },
+        {
+          pos: 1,
+          text: "test"
+        }
+      ]
+    },
+    {
+      pos: "E",
+      data: [
+        {
+          pos: 0,
+          text: "test"
+        },
+        {
+          pos: 1,
+          text: "test"
+        },
+        {
+          pos: 5,
+          text: "타이틀 입니다"
+        }
+      ]
+    },
+    {
+      pos: "F",
+      data: [
+        {
+          pos: 0,
+          text: "test"
+        },
+        {
+          pos: 1,
+          text: "test"
+        }
+      ]
+    },
+    {
+      pos: "G",
+      data: [
+        {
+          pos: 0,
+          text: "test"
+        },
+        {
+          pos: 1,
+          text: "test"
+        }
+      ]
+    },
+    {
+      pos: "H",
+      data: [
+        {
+          pos: 0,
+          text: "test"
+        },
+        {
+          pos: 1,
+          text: "test"
+        }
+      ]
     }
-  };
+  ];
+
   // content
-  res.json(content);
+  res.send(content);
 });
 
 io.on("connection", socket => {
@@ -48,7 +136,6 @@ io.on("connection", socket => {
   io.emit("message", "낯선 사람이 입장했습니다.");
 
   socket.on("update", content => {
-    console.log(content["E"]["5"]["text"]);
     io.emit("update", content);
   });
 

@@ -27,7 +27,10 @@ class Center extends Component {
 
   nextBackground() {
     let nowBg = this.state.background;
-    this.state.background = nowBg === this.state.themeColor.major ? this.state.themeColor.minor : this.state.themeColor.major;
+    this.state.background =
+      nowBg === this.state.themeColor.major
+        ? this.state.themeColor.minor
+        : this.state.themeColor.major;
     return nowBg;
   }
 
@@ -35,6 +38,16 @@ class Center extends Component {
     return (
       <Container>
         <Row>
+          <InputArea
+            area={
+              this.props.content && this.props.content["0"]
+                ? this.props.content["0"]
+                : undefined
+            }
+            updateMainContent={this.props.updateMainContent}
+            background={this.nextBackground()}
+            editable="true"
+          ></InputArea>
           <InputArea
             area={
               this.props.content && this.props.content["1"]
@@ -55,6 +68,8 @@ class Center extends Component {
             background={this.nextBackground()}
             editable="true"
           ></InputArea>
+        </Row>
+        <Row>
           <InputArea
             area={
               this.props.content && this.props.content["3"]
@@ -65,9 +80,8 @@ class Center extends Component {
             background={this.nextBackground()}
             editable="true"
           ></InputArea>
-        </Row>
-        <Row>
           <InputArea
+            name="title"
             area={
               this.props.content && this.props.content["4"]
                 ? this.props.content["4"]
@@ -76,9 +90,8 @@ class Center extends Component {
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
             editable="true"
-          ></InputArea>
+          />
           <InputArea
-            name="title"
             area={
               this.props.content && this.props.content["5"]
                 ? this.props.content["5"]
@@ -87,7 +100,9 @@ class Center extends Component {
             updateMainContent={this.props.updateMainContent}
             background={this.nextBackground()}
             editable="true"
-          />
+          ></InputArea>
+        </Row>
+        <Row>
           <InputArea
             area={
               this.props.content && this.props.content["6"]
@@ -98,8 +113,6 @@ class Center extends Component {
             background={this.nextBackground()}
             editable="true"
           ></InputArea>
-        </Row>
-        <Row>
           <InputArea
             area={
               this.props.content && this.props.content["7"]
@@ -114,16 +127,6 @@ class Center extends Component {
             area={
               this.props.content && this.props.content["8"]
                 ? this.props.content["8"]
-                : undefined
-            }
-            updateMainContent={this.props.updateMainContent}
-            background={this.nextBackground()}
-            editable="true"
-          ></InputArea>
-          <InputArea
-            area={
-              this.props.content && this.props.content["9"]
-                ? this.props.content["9"]
                 : undefined
             }
             updateMainContent={this.props.updateMainContent}
