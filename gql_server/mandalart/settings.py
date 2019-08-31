@@ -60,9 +60,9 @@ if STAGE in ['dev', 'local', 'test']:
         'debug_panel',
     ]
     MIDDLEWARE += [
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-        'debug_panel.middleware.DebugPanelMiddleware',
-        # 'mandalart.middleware.DebugPanelMiddlewareFixed',
+        # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+        # 'debug_panel.middleware.DebugPanelMiddleware',
+        'mandalart.middleware.DebugPanelMiddlewareFixed',
     ]
 
     INTERNAL_IPS = ('115.89.233.194',)
