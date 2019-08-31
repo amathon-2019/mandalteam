@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import UneditableContent from "./UneditableContent";
+import EditableContent from "./EditableContent";
 
 const Container = styled.div`
   width: 33%;
@@ -15,30 +17,24 @@ const Row = styled.div`
   display: flex;
 `;
 
-const Content = styled.div`
-  width: 33%;
-  heigth: 100%;
-  z-index: 1;
-`;
-
 class Main extends Component {
   render() {
     return (
       <Container>
         <Row>
-          <Content contentEditable="false" />
-          <Content contentEditable="false" />
-          <Content contentEditable="false" />
+          <UneditableContent>{this.props.subContents[1]}</UneditableContent>
+          <UneditableContent>{this.props.subContents[2]}</UneditableContent>
+          <UneditableContent>{this.props.subContents[3]}</UneditableContent>
         </Row>
         <Row>
-          <Content contentEditable="false" />
-          <Content contentEditable="true" />
-          <Content contentEditable="false" />
+          <UneditableContent>{this.props.subContents[4]}</UneditableContent>
+          <EditableContent />
+          <UneditableContent>{this.props.subContents[6]}</UneditableContent>
         </Row>
         <Row>
-          <Content contentEditable="false" />
-          <Content contentEditable="false" />
-          <Content contentEditable="false" />
+          <UneditableContent>{this.props.subContents[7]}</UneditableContent>
+          <UneditableContent>{this.props.subContents[8]}</UneditableContent>
+          <UneditableContent>{this.props.subContents[9]}</UneditableContent>
         </Row>
       </Container>
     );
