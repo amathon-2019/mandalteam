@@ -30,6 +30,7 @@ def _strtobool(val):
 
 def _update_function(stage):
     with prefix(f". {VENV}/bin/activate"):
+        local("pip install boto3==1.9.220 -U -t .")
         for f in FUNCTIONS:
             local(f"SLS_DEBUG=* serverless deploy -s {stage} -f {f} --verbose")
 
