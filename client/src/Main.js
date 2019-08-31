@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import Content from "./ContentContainer";
 
 const Container = styled.div`
   width: 33%;
@@ -16,24 +15,32 @@ const Row = styled.div`
   display: flex;
 `;
 
+const Content = styled.div`
+  width: 33%;
+  heigth: 100%;
+
+  border: 1px solid black;
+  z-index: 1;
+`;
+
 class Main extends Component {
   render() {
     return (
       <Container>
         <Row>
-          <Content />
-          <Content />
-          <Content />
+          <Content contentEditable="false" />
+          <Content contentEditable="false" />
+          <Content contentEditable="false" />
         </Row>
         <Row>
-          <Content />
-          <Content />
-          <Content />
+          <Content contentEditable="false" />
+          <Content contentEditable="true" />
+          <Content contentEditable="false" />
         </Row>
         <Row>
-          <Content />
-          <Content />
-          <Content />
+          <Content contentEditable="false" />
+          <Content contentEditable="false" />
+          <Content contentEditable="false" />
         </Row>
       </Container>
     );
