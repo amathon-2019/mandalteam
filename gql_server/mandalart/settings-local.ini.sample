@@ -1,0 +1,13 @@
+[base]
+SECRET_KEY:
+
+[db]
+NAME: mandalart
+USER: postgres
+PASSWORD:
+HOST: localhost
+PORT: 5432
+
+[AWS]
+STORAGE_BUCKET_NAME: test
+CHART_DDB_NAME: chartddb
