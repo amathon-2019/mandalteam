@@ -5,12 +5,12 @@ const Container = styled.div`
   width: 33.3333%;
   height: 100%;
   border: 0;
-  background: ${(prop) => prop.background};
+  background: ${prop => prop.background};
   font-size: 1rem;
   line-height: ${prop => prop.height}px;
 `;
 
-class UneditableContent extends Component {
+class EditableContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -79,4 +79,4 @@ class UneditableContent extends Component {
   }
 }
 
-export default UneditableContent;
+export default EditableContent;

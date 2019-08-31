@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Root from "./Root";
 import styled from "styled-components";
+import socketIOClient from "socket.io-client";
 
 const Container = styled.div`
   width: 100%;
@@ -70,7 +71,8 @@ class App extends React.Component {
       //     }
       //   }
       // }
-      content: undefined
+      content: undefined,
+      socket: undefined
     };
     this.updateMainContent = this.updateMainContent.bind(this);
   }
@@ -97,9 +99,19 @@ class App extends React.Component {
           content: newContent
         });
       });
+
+    const socket = socketIOClient("http://localhost:4000");
+    socket.on("update", content => {
+      this.setState({
+        content: content
+      });
+    });
+    this.setState({
+      socket: socket
+    });
   }
 
-  updateMainContent(grid, num, text) {
+  async updateMainContent(grid, num, text) {
     console.log(grid, num, text);
     let newContent = this.state.content;
     if (!newContent) {
@@ -113,9 +125,11 @@ class App extends React.Component {
     }
     newContent[grid][num]["text"] = text;
 
-    this.setState({
+    await this.setState({
       content: newContent
     });
+
+    this.state.socket.emit("update", this.state.content);
   }
 
   handleChange(e) {
