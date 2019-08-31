@@ -22,29 +22,31 @@ provider:
   memorySize: 756
   environment:
     STAGE: ${self:custom.stage}
-    S3: ${self:custom.bucket_name}
+  websocketsApiName: ${self:service}-${self:provider.stage}-websocket
+  websocketsApiRouteSelectionExpression: $request.body.type
   iamRoleStatements:
     - Effect: "Allow"
       Action:
-        - "secretsmanager:*"
-        - "ssm:Describe*"
-        - "ssm:Get*"
-        - "ssm:List*"
-        - "s3:*"
-        - "sns:*"
-        - "sqs:*"
         - "dynamodb:*"
-        - "xray:*"
-        - "lambda:InvokeFunction"
+        - "states:StartExecution"
       Resource:
         - "*"
-  apiGateway:
-    minimumCompressionSize: 0
+  tracing:
+    lambda: true
 
 package:
   individually: true
   include:
     - chartdata.py
+    - session_db.py
+    - boto3/**
+    - botocore/**
+    - dateutil/**
+    - docutils/**
+    - jmespath/**
+    - s3transfer/**
+    - urllib3/**
+    - six.py
   exclude:
     - .idea/**
     - .venv/**
@@ -64,24 +66,47 @@ layers:
 
 
 functions:
-  backend:
-    runtime: python3.6
-    handler: handler.handler
-    timeout: 20
-
+  connect:
+    handler: ws.connect
+    events:
+      - websocket:
+          route: $connect
+      - websocket:
+          route: $disconnect
+      - websocket:
+          route: $default
     tags:
       Service: ${self:service}
       Stage: ${self:provider.stage}
     layers:
       - {Ref: "MandalartLayerLambdaLayer"}
+  manager:
+    handler: ws.manager
+    events:
+      - websocket:
+          route: "init"
+      - websocket:
+          route: "edit"
+    tags:
+      Service: ${self:service}
+      Stage: ${self:provider.stage}
+    layers:
+      - {Ref: "MandalartLayerLambdaLayer"}
+  sync:
+    handler: ws.sync
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            Fn::GetAtt:
+              - ChartDB
+              - StreamArn
+    layers:
+      - {Ref: "MandalartLayerLambdaLayer"}
+
 
 resources:
   Resources:
-    BackendLambdaFunction:
-      Type: "AWS::Lambda::Function"
-      Properties:
-        TracingConfig:
-          Mode: "Active"
     ChartDB:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -95,3 +120,23 @@ resources:
         KeySchema:
           - AttributeName: hashid
             KeyType: HASH
+    SessionDB:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: "${self:provider.stage}_session_db"
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: connection_id
+            AttributeType: S
+          - AttributeName: chart
+            AttributeType: S
+        KeySchema:
+          - AttributeName: connection_id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: chartIndex
+            KeySchema:
+              - AttributeName: chart
+                KeyType: HASH
+            Projection:
+              ProjectionType: KEYS_ONLY

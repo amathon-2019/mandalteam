@@ -9,7 +9,7 @@ from fabric.contrib.console import confirm
 DEFAULT_STAGE = 'dev'
 STAGES = [DEFAULT_STAGE, 'test', 'prod']
 VENV = ".venv"
-FUNCTIONS = ["backend",  ]
+FUNCTIONS = ["connect","manager" ,"sync" ]
 
 
 def _install_packages():
