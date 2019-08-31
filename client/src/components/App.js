@@ -17,6 +17,7 @@ const Header = styled.header`
   margin-bottom: 20px;
   padding: 10px 20px 10px;
   box-shadow: 0 0 3px #999;
+  cursor: pointer;
 `;
 
 const BackButton = styled.i`
@@ -178,6 +179,10 @@ class App extends React.Component {
     this.state.socket.emit("update", this.state.content);
   }
 
+  gotoHome() {
+    document.location.href = "/";
+  }
+
   toggleHoverState(e) {
     this.setState({
       isHovering: !this.state.isHovering
@@ -185,6 +190,7 @@ class App extends React.Component {
   }
 
   makeColor(id) {
+    if (!id) id = '1';
     let hash = crypto.createHash('md5').update(id.toString()).digest('hex')
     ,   color = parseInt(hash.slice(0, 2), 16);
     return {
@@ -206,7 +212,10 @@ class App extends React.Component {
           </ChatButton>
           {this.state.isHovering ? <LiveUsers /> : undefined}
           <TitleWrapper>
-            <BackButton className="icon ion-md-arrow-round-back"></BackButton>
+            <BackButton
+              className="icon ion-md-arrow-round-back"
+              onClick={this.gotoHome}>
+            </BackButton>
             <Title
               name="title"
               value={
@@ -222,7 +231,7 @@ class App extends React.Component {
         <Chart
           content={this.state.content ? this.state.content : undefined}
           updateMainContent={this.updateMainContent}
-          themeColor={this.makeColor(1)}
+          themeColor={this.makeColor(this.props.roomId)}
         />
       </Container>
     );
