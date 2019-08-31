@@ -4,18 +4,20 @@ import Sub from "./Sub";
 import Main from "./Main";
 
 const Container = styled.div`
-  width: 80%;
+  width: ${(prop) => prop.size}px;
+  height: ${(prop) => prop.size}px;
   margin: 0 auto;
+
+  border: solid #999;
+  border-weight: 1px 0 0 1px;
 
   display: flex;
   flex-direction: column;
-
-  border: 1px solid #999;
 `;
 
 const Row = styled.div`
   width: 100%;
-  height: 300px;
+  height: 33.3333%;
   display: flex;
 `;
 
@@ -24,8 +26,15 @@ class Root extends Component {
     super(props);
     this.state = {
       subContents: [null, null, null, null, null, null, null, null, null, null],
-      main: <Main />
+      main: <Main />,
+      containerSize: Math.min(window.innerWidth, window.innerHeight) - 100
     };
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', () => {
+      this.setState(prev => prev.containerSize = Math.min(window.innerWidth, window.innerHeight) - 100);
+    });
   }
 
   updateMainContent(sub_id, content) {
@@ -34,7 +43,7 @@ class Root extends Component {
 
   render() {
     return (
-      <Container>
+      <Container size={this.state.containerSize}>
         <Row>
           <Sub id="sub_1" updateMainContent={this.updateMainContent} />
           <Sub id="sub_2" updateMainContent={this.updateMainContent} />

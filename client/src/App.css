@@ -1,9 +1,13 @@
+@import "https://cdn.jsdelivr.net/npm/spoqa-han-sans@2.1.2/css/SpoqaHanSans-kr.css";
+
 * {
   box-sizing: border-box;
+  font-family: 'Spoqa Han Sans';
 }
 
 html, body {
-  margin: 0; padding: 0; font-family: 'Spoqa Han Sans';
+  margin: 0;
+  padding: 0;
 }
 
 .App {

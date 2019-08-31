@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const Container = styled.input`
-  width: 33%;
+const Container = styled.div`
+  width: 33.3333%;
   heigth: 100%;
-
-  border: 1px solid black;
 `;
 
 class UneditableContent extends Component {
