@@ -1,8 +1,8 @@
 import graphene
-from base.schema import SimpleUserNode
 from graphene_django import DjangoConnectionField
-from mandalart.utils import HashIdDjangoObjectType
 
+from base.schema import SimpleUserNode
+from mandalart.utils import HashIdDjangoObjectType
 from .models import Chart
 
 
@@ -10,7 +10,7 @@ class ChartNode(HashIdDjangoObjectType):
     class Meta:
         interfaces = (graphene.relay.Node,)
         model = Chart
-        only_fields = ('name', 'master',)
+        only_fields = ('master',)
 
     master = graphene.Field(SimpleUserNode, description="작성자")
 

@@ -542,3 +542,7 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
 
+
+gql_server/sync_api/.serverless/
+
+gql_server/sync_api/layer/

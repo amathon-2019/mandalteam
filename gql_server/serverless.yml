@@ -133,7 +133,7 @@ resources:
         Description: ChartDDB
         Name: "/mandalart/${self:provider.stage}/chart_db"
         Type: String
-        Value: test
+        Value: "${self:provider.stage}_chart_db"
     S3BucketName:
       Type: AWS::SSM::Parameter
       Properties:

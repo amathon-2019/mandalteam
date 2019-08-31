@@ -1,0 +1,100 @@
+service: mandalart-syncdb
+
+plugins:
+  - serverless-apigw-binary
+  - serverless-apigwy-binary
+
+
+custom:
+  stage:  ${opt:stage, 'dev'}
+  domain_prefix:
+    test: "-test"
+    dev: "-dev"
+    prod: ""
+  apigwBinary:
+    types:           #list of mime-types
+      - '*/*'
+  bucket_name: "mandalart-${self:custom.stage}-storage"
+
+provider:
+  name: aws
+  stage: ${self:custom.stage}
+  runtime: python3.6
+  region: ap-northeast-2
+  profile: amathon
+  memorySize: 756
+  environment:
+    STAGE: ${self:custom.stage}
+    S3: ${self:custom.bucket_name}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "secretsmanager:*"
+        - "ssm:Describe*"
+        - "ssm:Get*"
+        - "ssm:List*"
+        - "s3:*"
+        - "sns:*"
+        - "sqs:*"
+        - "dynamodb:*"
+        - "xray:*"
+        - "lambda:InvokeFunction"
+      Resource:
+        - "*"
+  apiGateway:
+    minimumCompressionSize: 0
+
+package:
+  individually: true
+  include:
+    - chartdata.py
+  exclude:
+    - .idea/**
+    - .venv/**
+    - terraform/**
+    - tests/**
+    - .git/**
+    - node_modules/**
+    - .serverless/**
+
+layers:
+  MandalartLayer:
+    path: layer/mandalart_sync
+    compatibleRuntimes:
+      - python3.6
+      - python3.7
+    description: mandalart_sync_layer
+
+
+functions:
+  backend:
+    runtime: python3.6
+    handler: handler.handler
+    timeout: 20
+
+    tags:
+      Service: ${self:service}
+      Stage: ${self:provider.stage}
+    layers:
+      - {Ref: "MandalartLayerLambdaLayer"}
+
+resources:
+  Resources:
+    BackendLambdaFunction:
+      Type: "AWS::Lambda::Function"
+      Properties:
+        TracingConfig:
+          Mode: "Active"
+    ChartDB:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: "${self:provider.stage}_chart_db"
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        AttributeDefinitions:
+          - AttributeName: hashid
+            AttributeType: S
+        KeySchema:
+          - AttributeName: hashid
+            KeyType: HASH
