@@ -62,13 +62,6 @@ const Users = styled.div`
   line-height: 1.6em;
 `;
 
-const Users = styled.div`
-  float: right;
-  font-size: 1rem;
-
-  padding: 10px 20px;
-`;
-
 class App extends React.Component {
   constructor(props) {
     super(props);
