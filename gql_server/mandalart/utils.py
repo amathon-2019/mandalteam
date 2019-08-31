@@ -1,4 +1,5 @@
 import graphene
+from django.conf import settings
 from django.db import models
 from graphene_django import DjangoObjectType
 from hashids import Hashids
