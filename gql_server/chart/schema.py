@@ -57,7 +57,7 @@ class ChartCreate(graphene.Mutation):
     chart = graphene.Field(ChartNode)
 
     def mutate(self, info, name):
-        user = User.objects.get_or_create(username="test")
+        user,_ = User.objects.get_or_create(username="test")
         new_chart = Chart.new_chart(user, name)
         return ChartCreate(chart=new_chart)
 

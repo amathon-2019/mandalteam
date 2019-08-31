@@ -46,11 +46,10 @@ provider:
 
 package:
   individually: true
-  include:
-    - static/**
   exclude:
     - .idea/**
     - .venv/**
+    - layer/**
     - terraform/**
     - tests/**
     - .git/**
@@ -60,6 +59,7 @@ package:
     - staticfile/**
     - mandalart/local_settings.py
     - .serverless/**
+    - sync_api/**
 
 layers:
   MandalartLayer:

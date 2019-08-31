@@ -17,7 +17,8 @@ class Chart(HashidModel, models.Model):
     @property
     def data(self):
         if not self._ddb:
-            self._ddb = ChartData.query(hash_key=self.hashid)
+            data = list(ChartData.query(hash_key=self.hashid))
+            self._ddb = data[0] if data else None
         return self._ddb
 
     @classmethod
