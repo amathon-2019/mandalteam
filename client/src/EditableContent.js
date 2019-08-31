@@ -68,11 +68,12 @@ class EditableContent extends Component {
         ref={ref => (this.Container = ref)}
         height={this.state.height}
         background={this.state.background}
-      >
-        {this.props.area && this.props.area.text
-          ? this.props.area.text
-          : undefined}
-      </Container>
+        value={
+          this.props.area && this.props.area.text
+            ? this.props.area.text
+            : undefined
+        }
+      ></Container>
     );
   }
 }
