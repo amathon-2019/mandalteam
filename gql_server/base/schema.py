@@ -1,9 +1,10 @@
 import graphene
+from mandalart.utils import HashIdDjangoObjectType
 
 from .models import User
 
 
-class SimpleUserNode():
+class SimpleUserNode(HashIdDjangoObjectType):
     class Meta:
         interfaces = (graphene.relay.Node,)
         only_fields = ('date_joined', 'username')
