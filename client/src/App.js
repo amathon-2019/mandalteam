@@ -3,6 +3,8 @@ import "./App.css";
 import Root from "./Root";
 import styled from "styled-components";
 import socketIOClient from "socket.io-client";
+import liveUsers from "./LiveUsers";
+import LiveUsers from "./LiveUsers";
 
 const Container = styled.div`
   width: 100%;
@@ -47,6 +49,13 @@ const ChatButton = styled.i`
   font-size: 1.6rem;
 `;
 
+const Users = styled.div`
+  float: right;
+  font-size: 1rem;
+
+  padding: 10px 20px;
+`;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -72,7 +81,9 @@ class App extends React.Component {
       //   }
       // }
       content: undefined,
-      socket: undefined
+      socket: undefined,
+      liveUsers: 0,
+      isHovering: false
     };
     this.updateMainContent = this.updateMainContent.bind(this);
   }
@@ -106,6 +117,13 @@ class App extends React.Component {
         content: content
       });
     });
+
+    socket.on("count", count => {
+      this.setState({
+        liveUsers: count
+      });
+    });
+
     this.setState({
       socket: socket
     });
@@ -132,7 +150,7 @@ class App extends React.Component {
     this.state.socket.emit("update", this.state.content);
   }
 
-  handleChange(e) {
+  async handleChange(e) {
     let newContent = this.state.content;
     if (!newContent) {
       newContent = {};
@@ -144,8 +162,17 @@ class App extends React.Component {
       newContent["E"]["5"] = {};
     }
     newContent["E"]["5"]["text"] = e.target.value;
-    this.setState({
+    console.log(newContent["E"]["5"]["text"]);
+    await this.setState({
       content: newContent
+    });
+
+    this.state.socket.emit("update", this.state.content);
+  }
+
+  toggleHoverState(e) {
+    this.setState({
+      isHovering: !this.state.isHovering
     });
   }
 
@@ -153,7 +180,14 @@ class App extends React.Component {
     return (
       <Container>
         <Header>
-          <ChatButton className="icon ion-md-people"></ChatButton>
+          <ChatButton
+            name="live-users"
+            onMouseEnter={this.toggleHoverState.bind(this)}
+            onMouseLeave={this.toggleHoverState.bind(this)}
+            className="icon ion-md-people"
+          ></ChatButton>
+          <Users>현재 접속 중인 사용자 : {this.state.liveUsers} 명</Users>
+          {this.state.isHovering ? <LiveUsers /> : undefined}
           <TitleWrapper>
             <BackButton className="icon ion-md-arrow-round-back"></BackButton>
             <Title
