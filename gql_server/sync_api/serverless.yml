@@ -1,8 +1,5 @@
 service: mandalart-syncdb
 
-plugins:
-  - serverless-apigw-binary
-  - serverless-apigwy-binary
 
 
 custom:
