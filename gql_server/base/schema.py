@@ -23,8 +23,10 @@ class CreateUser(graphene.Mutation):
     user = graphene.Field(SimpleUserNode)
 
     def mutate(self, info, username, password):
-        exist = User.objects.filter(username=username)[0]
-        if not exist:
+        try:
+            exist = User.objects.get(username=username)
+            return CreateUser(success=False)
+        except User.DoesNotExist:
             new_user = User.objects.create_user(username=username, password=password)
             return CreateUser(success=True, user=new_user)
 
@@ -34,6 +36,7 @@ class Query(graphene.ObjectType):
 
 
 class Mutation(graphene.ObjectType):
+    signup = CreateUser.Field()
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
