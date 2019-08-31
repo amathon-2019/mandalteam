@@ -1,7 +1,10 @@
 import React, { PureComponent, Component } from 'react';
 import styled from "styled-components";
 import { Mutation } from "react-apollo";
-import { RegisterMutation } from '../graphql/mutations';
+import { LoginMutation } from '../graphql/mutations';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 const Container = styled.div`
   width: 100%;
@@ -14,7 +17,7 @@ const Container = styled.div`
   background-size: cover;
 `;
 
-const RegisterBox = styled.div`
+const LoginBox = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -36,13 +39,12 @@ const TextBox = styled.input`
   }
 `;
 
-class Register extends PureComponent {
+class Login extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      password: '',
-      passwordConfirm: ''
+      password: ''
     };
   }
 
@@ -52,27 +54,22 @@ class Register extends PureComponent {
     };
   }
   
-  runRegister() {
+  runLogin() {
     if (!this.state.username || !this.state.password) {
       alert('빈 칸을 모두 채워주세요.');
       return;
     }
-    if (this.state.password !== this.state.passwordConfirm) {
-      alert('패스워드와 패스워드 확인이 일치하지 않습니다.');
-      return;
-    }
-    this.props.RegisterMutation({ variables: this.state });
+    this.props.LoginMutation({ variables: this.state });
   }
 
   render() {	
     return (
       <Container>
-        <RegisterBox>
+        <LoginBox>
           <TextBox onChange={ this.handleField('username') } placeholder="아이디"></TextBox>
           <TextBox type="password" onChange={ this.handleField('password') } placeholder="비밀번호"></TextBox>
-          <TextBox type="password" onChange={ this.handleField('passwordConfirm') } placeholder="비밀번호 확인"></TextBox>
-          <button onClick={ this.runRegister.bind(this) }>회원가입</button>
-        </RegisterBox>
+          <button onClick={ this.runLogin.bind(this) }>로그인</button>
+        </LoginBox>
       </Container>
     );
   }
@@ -82,20 +79,16 @@ export default class extends Component {
   render () {
     return (
       <Mutation
-        mutation={RegisterMutation}
+        mutation={LoginMutation}
         onCompleted={async (data) => {
-					if (!data.signup.success) {
-						alert('이미 등록된 아이디입니다.');
-						return;
-					}
-          alert('정상적으로 회원가입 되었습니다. 다시 로그인해주시기 바랍니다.');
+          cookies.set('token', data.tokenAuth.token);
           document.location.href = '/';
         }}
         onError={e => {
-          alert('회원가입 중 오류가 발생했습니다.');
+          alert('로그인 정보가 일치하지 않습니다.');
         }}>
-        {(RegisterMutation, { loading }) => {
-          return <Register loading={loading} RegisterMutation={RegisterMutation} />
+        {(LoginMutation, { loading }) => {
+          return <Login loading={loading} LoginMutation={LoginMutation} />
         }}
       </Mutation>
     )

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
+import Cookies from 'universal-cookie';
 
 import Room from "../components/List/Room";
+
+const cookies = new Cookies();
 
 const Header = styled.header`
   position: relative;
@@ -80,10 +83,12 @@ class Home extends Component {
         <Header>
           <h1>Mandal-Art</h1>
           <h5>실시간 동기화되는 만다라트 차트를 통해 협업해보세요!</h5>
-          <nav>
-            <a href="#" onclick={console.log}>로그인</a>
+          {cookies.get('token') ? <nav>
+            <a href="#" onClick={cookies.set('token', '')}>로그아웃</a>
+          </nav> : <nav>
+            <a href="/login">로그인</a>
             <a href="/register">회원가입</a>
-          </nav>
+          </nav>}
         </Header>
         <CreateRoom>
           <Title placeholder="무엇에 대한 만다라트 차트인가요?"></Title>
