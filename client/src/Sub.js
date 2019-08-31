@@ -27,7 +27,7 @@ class Sub extends Component {
   nextBackground() {
     let nowBg = this.state.background;
     if (!nowBg) nowBg = '#fff';
-    this.state.background = nowBg == '#f9f9f9' ? '#fff' : '#f9f9f9';
+    this.state.background = nowBg == '#f6f6f6' ? '#fff' : '#f6f6f6';
     return nowBg;
   }
 

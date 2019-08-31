@@ -60,7 +60,7 @@ class Root extends Component {
             }
             grid="B"
             updateMainContent={this.props.updateMainContent}
-            startBackground="#f9f9f9"
+            startBackground="#f6f6f6"
           />
           <Sub
             content={
@@ -81,7 +81,7 @@ class Root extends Component {
             }
             grid="D"
             updateMainContent={this.props.updateMainContent}
-            startBackground="#f9f9f9"
+            startBackground="#f6f6f6"
           />
           <Main
             content={
@@ -100,7 +100,7 @@ class Root extends Component {
             }
             grid="F"
             updateMainContent={this.props.updateMainContent}
-            startBackground="#f9f9f9"
+            startBackground="#f6f6f6"
           />
         </Row>
         <Row>
@@ -121,7 +121,7 @@ class Root extends Component {
             }
             grid="H"
             updateMainContent={this.props.updateMainContent}
-            startBackground="#f9f9f9"
+            startBackground="#f6f6f6"
           />
           <Sub
             content={
