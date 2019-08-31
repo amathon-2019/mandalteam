@@ -26,7 +26,7 @@ const BackButton = styled.i`
 `;
 
 const TitleWrapper = styled.h1`
-  width: 100%;
+  width: calc(100% - 50px);
   max-width: 520px;
   margin: 0 auto;
   font-size: 1.4rem;

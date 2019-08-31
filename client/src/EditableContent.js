@@ -87,6 +87,10 @@ class EditableContent extends Component {
   componentDidMount() {
     this.TextBox.style.height = "1px";
     this.TextBox.style.height = this.TextBox.scrollHeight + 1 + 'px';
+    window.addEventListener('resize', () => {
+      this.TextBox.style.height = "1px";
+      this.TextBox.style.height = this.TextBox.scrollHeight + 1 + 'px';
+    });
   }
 
   render() {
