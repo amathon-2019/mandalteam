@@ -48,17 +48,32 @@ AllChartConnectionField = DjangoConnectionField(
 )
 
 
-# 차트 추가하는 뮤테이션
+class ChartDelete(graphene.Mutation):
+    class Arguments:
+        chart_id = graphene.ID()
+
+    result = graphene.String()
+    success = graphene.Boolean()
+
+    def mutate(self, info, chart_id):
+        target_chart = Chart.objects.select_related('master').get(id=chart_id)
+        if info.context.user == target_chart.master:
+            target_chart.delete()
+            return ChartDelete(result="Target is deleted", success=True)
+        else:
+            return ChartDelete(result="Not allowed", success=False)
+
+
 class ChartCreate(graphene.Mutation):
     class Arguments:
         name = graphene.Argument(graphene.String, description="차트 이름")
-        pass
 
     chart = graphene.Field(ChartNode)
 
     def mutate(self, info, name):
         user,_ = User.objects.get_or_create(username="test")
         new_chart = Chart.new_chart(user, name)
+
         return ChartCreate(chart=new_chart)
 
 
@@ -72,3 +87,5 @@ class Query(graphene.ObjectType):
 
 class Mutation(graphene.ObjectType):
     make_chart = ChartCreate.Field()
+    delete_chart = ChartDelete.Field()
+
