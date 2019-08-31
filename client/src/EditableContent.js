@@ -1,20 +1,46 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const Container = styled.textarea`
+const Container = styled.div`
+  position: relative;
   width: 33.3333%;
   height: 100%;
   border: 0;
   background: ${prop => prop.background};
   font-size: 1rem;
-  line-height: ${prop => prop.height}px;
+  overflow: auto;
+  resize: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 1px;
+  }
+`;
+
+const TextBox = styled.textarea`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  border: 0;
+  background: none;
+  font-size: 1em;
+  text-align: center;
+  overflow: visible;
+  resize: none;
+  transform: translateY(-50%);
+  &:focus {
+    outline: none;
+  }
 `;
 
 class EditableContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      height: 100,
       background: props.background
     };
   }
@@ -43,6 +69,8 @@ class EditableContent extends Component {
   }
 
   handleChange(e) {
+    this.TextBox.style.height = "1px";
+    this.TextBox.style.height = this.TextBox.scrollHeight + 1 + 'px';
     this.props.updateMainContent(
       this.props.grid,
       this.props.num,
@@ -58,20 +86,21 @@ class EditableContent extends Component {
   }
 
   componentDidMount() {
-    this.setState(prev => (prev.height = this.Container.offsetHeight));
+    this.TextBox.style.height = "1px";
+    this.TextBox.style.height = this.TextBox.scrollHeight + 1 + 'px';
   }
 
   render() {
     return (
       <Container
-        onInput={this.handleChange.bind(this)}
-        ref={ref => (this.Container = ref)}
-        height={this.state.height}
-        background={this.state.background}
-      >
-        {this.props.area && this.props.area.text
-          ? this.props.area.text
-          : undefined}
+        background={this.state.background}>
+        <TextBox
+          onChange={this.handleChange.bind(this)}
+          ref={ref => (this.TextBox = ref)}
+          value={this.props.area && this.props.area.text
+            ? this.props.area.text
+            : undefined}>
+        </TextBox>
       </Container>
     );
   }
