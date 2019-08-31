@@ -1,5 +1,6 @@
+import sys
+sys.path.append("/opt")
 import os
-
 from pynamodb.attributes import ListAttribute, MapAttribute, NumberAttribute, UnicodeAttribute
 from pynamodb.models import Model
 
