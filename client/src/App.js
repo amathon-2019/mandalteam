@@ -80,12 +80,18 @@ class App extends React.Component {
 
     fetch(url)
       .then(res => res.json())
-      .then(data => {
+      .then(async data => {
         console.log(data);
-        this.setState({
+        await this.setState({
           content: data,
           title: data.E[5].text
         });
+        if (!this.state.content) {
+          let newContent = this.state.content;
+          newContent = {};
+          newContent["E"] = {};
+          newContent["E"]["5"] = {};
+        }
       });
   }
 
