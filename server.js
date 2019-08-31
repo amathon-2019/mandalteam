@@ -15,7 +15,7 @@ app.get("/json", (req, res, next) => {
   const content = {
     A: {
       "1": {
-        text: "첫 번째"
+        text: "첫 번째 입니다"
       },
       "2": {
         text: "두 번째"
