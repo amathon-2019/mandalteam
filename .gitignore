@@ -1,6 +1,5 @@
 
 gql_server/.venv/
-
 .idea/
 
 gql_server/.serverless/
