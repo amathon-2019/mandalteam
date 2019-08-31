@@ -40,7 +40,8 @@ class InputArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      background: props.background
+      background: props.background,
+      value: ""
     };
   }
 
@@ -73,19 +74,9 @@ class InputArea extends Component {
   }
 
   handleChange(e) {
-    this.resizeScroll();
-    this.props.updateMainContent(
-      this.props.grid,
-      this.props.num,
-      e.target.value
-    );
-    if (this.props.name === "sub_main") {
-      this.props.updateMainContent(
-        "E",
-        this.convertGridToNumber(this.props.grid),
-        e.target.value
-      );
-    }
+    this.setState({
+      value: e.target.value
+    });
   }
 
   componentDidMount() {
@@ -99,11 +90,30 @@ class InputArea extends Component {
     this.resizeScroll();
   }
 
+  handleBlur(e) {
+    console.log(this.state.value);
+
+    this.resizeScroll();
+    this.props.updateMainContent(
+      this.props.grid,
+      this.props.num,
+      this.state.value
+    );
+    if (this.props.name === "sub_main") {
+      this.props.updateMainContent(
+        "E",
+        this.convertGridToNumber(this.props.grid),
+        this.state.value
+      );
+    }
+  }
+
   render() {
     return (
       <Container background={this.state.background}>
         <TextBox
           onChange={this.handleChange.bind(this)}
+          onBlur={this.handleBlur.bind(this)}
           ref={ref => (this.TextBox = ref)}
           value={
             this.props.area && this.props.area.text
