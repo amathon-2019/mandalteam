@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const Container = styled.input`
+const Container = styled.div`
   width: 33%;
   heigth: 100%;
 
@@ -10,7 +10,15 @@ const Container = styled.input`
 
 class UneditableContent extends Component {
   render() {
-    return <Container></Container>;
+    return (
+      <Container>
+        {this.props.title
+          ? this.props.title
+          : this.props.content
+          ? this.props.content
+          : ""}
+      </Container>
+    );
   }
 }
 

@@ -27,29 +27,40 @@ class Root extends Component {
       subContents: [null, null, null, null, null, null, null, null, null, null],
       main: <Main />
     };
+    this.updateMainContent = this.updateMainContent.bind(this);
   }
 
   updateMainContent(sub_id, content) {
-    console.log(`sub_id: ${sub_id}, content: ${content}`);
+    console.log(sub_id, content);
+    const newSubContents = this.state.subContents;
+    newSubContents[sub_id] = content;
+
+    this.setState({
+      subContents: newSubContents
+    });
   }
 
   render() {
     return (
       <Container>
         <Row>
-          <Sub id="sub_1" updateMainContent={this.updateMainContent} />
-          <Sub id="sub_2" updateMainContent={this.updateMainContent} />
-          <Sub id="sub_3" updateMainContent={this.updateMainContent} />
+          <Sub id="1" updateMainContent={this.updateMainContent} />
+          <Sub id="2" updateMainContent={this.updateMainContent} />
+          <Sub id="3" updateMainContent={this.updateMainContent} />
         </Row>
         <Row>
-          <Sub id="sub_4" updateMainContent={this.updateMainContent} />
-          <Main id="main" subContents={this.state.subContents} />
-          <Sub id="sub_6" updateMainContent={this.updateMainContent} />
+          <Sub id="4" updateMainContent={this.updateMainContent} />
+          <Main
+            title={this.props.title}
+            id="main"
+            subContents={this.state.subContents}
+          />
+          <Sub id="6" updateMainContent={this.updateMainContent} />
         </Row>
         <Row>
-          <Sub id="sub_7" updateMainContent={this.updateMainContent} />
-          <Sub id="sub_8" updateMainContent={this.updateMainContent} />
-          <Sub id="sub_9" updateMainContent={this.updateMainContent} />
+          <Sub id="7" updateMainContent={this.updateMainContent} />
+          <Sub id="8" updateMainContent={this.updateMainContent} />
+          <Sub id="9" updateMainContent={this.updateMainContent} />
         </Row>
       </Container>
     );
