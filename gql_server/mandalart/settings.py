@@ -119,6 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#TODO: 수정
 GRAPHENE = {
     'SCHEMA': 'mysite.myschema.schema',
     'MIDDLEWARE': [

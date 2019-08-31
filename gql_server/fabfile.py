@@ -86,7 +86,7 @@ def deploy(stage=DEFAULT_STAGE, packaging=False, migration=True):
 
 
 def _get_env(stage):
-    return f"STAGE={stage} AWS_DEFAULT_PROFILE=brgg"
+    return f"STAGE={stage} AWS_DEFAULT_PROFILE=amathon"
 
 
 def migrate(stage=DEFAULT_STAGE, init=False):

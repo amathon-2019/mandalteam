@@ -138,4 +138,4 @@ resources:
         Description: ChartDDB
         Name: "/mandalart/${self:provider.stage}/s3_bucket_name"
         Type: String
-        Value: test
+        Value: ${self:custom.bucket_name}
