@@ -1,0 +1,143 @@
+service: mandalart-backend
+
+plugins:
+  - serverless-apigw-binary
+  - serverless-apigwy-binary
+
+
+custom:
+  stage:  ${opt:stage, 'dev'}
+  domain_prefix:
+    test: "-test"
+    dev: "-dev"
+    prod: ""
+  apigwBinary:
+    types:           #list of mime-types
+      - '*/*'
+  bucket_name: "mandalart-${self:custom.stage}-storage"
+
+provider:
+  name: aws
+  stage: ${self:custom.stage}
+  runtime: python3.6
+  region: ap-northeast-2
+  profile: amathon
+  memorySize: 756
+  environment:
+    STAGE: ${self:custom.stage}
+    S3: ${self:custom.bucket_name}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "secretsmanager:*"
+        - "ssm:Describe*"
+        - "ssm:Get*"
+        - "ssm:List*"
+        - "s3:*"
+        - "sns:*"
+        - "sqs:*"
+        - "dynamodb:*"
+        - "xray:*"
+        - "lambda:InvokeFunction"
+      Resource:
+        - "*"
+  apiGateway:
+    minimumCompressionSize: 0
+
+package:
+  individually: true
+  exclude:
+    - .idea/**
+    - .venv/**
+    - layer/**
+    - terraform/**
+    - tests/**
+    - .git/**
+    - node_modules/**
+    - deployvenv/**
+    - media/**
+    - staticfile/**
+    - mandalart/local_settings.py
+    - .serverless/**
+    - sync_api/**
+
+layers:
+  MandalartLayer:
+    path: layer/mandalart
+    compatibleRuntimes:
+      - python3.6
+      - python3.7
+    description: codelion related packages
+
+
+functions:
+  backend:
+    runtime: python3.6
+    handler: handler.handler
+    timeout: 20
+    events: # All events associated with this function
+      - http:
+          path: /
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+            cacheControl: 'max-age=600, s-maxage=600, proxy-revalidate'
+
+      - http:
+          path: /backend/{proxy+}
+          method: ANY
+          authorizer: aws_iam
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+            cacheControl: 'max-age=600, s-maxage=600, proxy-revalidate'
+
+    tags:
+      Service: ${self:service}
+      Stage: ${self:provider.stage}
+    layers:
+      - {Ref: "MandalartLayerLambdaLayer"}
+
+resources:
+  Resources:
+    BackendLambdaFunction:
+      Type: "AWS::Lambda::Function"
+      Properties:
+        TracingConfig:
+          Mode: "Active"
+    S3Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.bucket_name}
+    ChartDDBName:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Description: ChartDDB
+        Name: "/mandalart/${self:provider.stage}/chart_db"
+        Type: String
+        Value: "${self:provider.stage}_chart_db"
+    S3BucketName:
+      Type: AWS::SSM::Parameter
+      Properties:
+        Description: ChartDDB
+        Name: "/mandalart/${self:provider.stage}/s3_bucket_name"
+        Type: String
+        Value: ${self:custom.bucket_name}

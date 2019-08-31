@@ -1,0 +1,142 @@
+service: mandalart-syncdb
+
+
+
+custom:
+  stage:  ${opt:stage, 'dev'}
+  domain_prefix:
+    test: "-test"
+    dev: "-dev"
+    prod: ""
+  apigwBinary:
+    types:           #list of mime-types
+      - '*/*'
+  bucket_name: "mandalart-${self:custom.stage}-storage"
+
+provider:
+  name: aws
+  stage: ${self:custom.stage}
+  runtime: python3.6
+  region: ap-northeast-2
+  profile: amathon
+  memorySize: 756
+  environment:
+    STAGE: ${self:custom.stage}
+  websocketsApiName: ${self:service}-${self:provider.stage}-websocket
+  websocketsApiRouteSelectionExpression: $request.body.type
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+        - "states:StartExecution"
+      Resource:
+        - "*"
+  tracing:
+    lambda: true
+
+package:
+  individually: true
+  include:
+    - chartdata.py
+    - session_db.py
+    - boto3/**
+    - botocore/**
+    - dateutil/**
+    - docutils/**
+    - jmespath/**
+    - s3transfer/**
+    - urllib3/**
+    - six.py
+  exclude:
+    - .idea/**
+    - .venv/**
+    - terraform/**
+    - tests/**
+    - .git/**
+    - node_modules/**
+    - .serverless/**
+
+layers:
+  MandalartLayer:
+    path: layer/mandalart_sync
+    compatibleRuntimes:
+      - python3.6
+      - python3.7
+    description: mandalart_sync_layer
+
+
+functions:
+  connect:
+    handler: ws.connect
+    events:
+      - websocket:
+          route: $connect
+      - websocket:
+          route: $disconnect
+      - websocket:
+          route: $default
+    tags:
+      Service: ${self:service}
+      Stage: ${self:provider.stage}
+    layers:
+      - {Ref: "MandalartLayerLambdaLayer"}
+  manager:
+    handler: ws.manager
+    events:
+      - websocket:
+          route: "init"
+      - websocket:
+          route: "edit"
+    tags:
+      Service: ${self:service}
+      Stage: ${self:provider.stage}
+    layers:
+      - {Ref: "MandalartLayerLambdaLayer"}
+  sync:
+    handler: ws.sync
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            Fn::GetAtt:
+              - ChartDB
+              - StreamArn
+    layers:
+      - {Ref: "MandalartLayerLambdaLayer"}
+
+
+resources:
+  Resources:
+    ChartDB:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: "${self:provider.stage}_chart_db"
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        AttributeDefinitions:
+          - AttributeName: hashid
+            AttributeType: S
+        KeySchema:
+          - AttributeName: hashid
+            KeyType: HASH
+    SessionDB:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: "${self:provider.stage}_session_db"
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: connection_id
+            AttributeType: S
+          - AttributeName: chart
+            AttributeType: S
+        KeySchema:
+          - AttributeName: connection_id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: chartIndex
+            KeySchema:
+              - AttributeName: chart
+                KeyType: HASH
+            Projection:
+              ProjectionType: KEYS_ONLY

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    container_name: amathon-db
+    image: postgres:10.3
+    ports:
+      - "5432:5432"
+  xray:
+    container_name: amathon-xray
+    image: amazon/aws-xray-daemon
+    environment:
+      - AWS_REGION=ap-northeast-2
+    ports:
+      - "2000:2000/udp"
+  dynamodb:
+    container_name: amathon-ddb
+    image: amazon/dynamodb-local
+    environment:
+      - AWS_REGION=ap-northeast-2
+    ports:
+      - "8888:8000"
