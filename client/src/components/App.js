@@ -211,14 +211,17 @@ class App extends React.Component {
 
       // 만약 메시지가 changed 이라면, 해당 메세지의 pos와 text를 가져와 content를 업데이트 한다
       if (msg.type === "changed") {
+        if (msg.location === "name") {
+        }
         console.log("change detected");
         const grid = msg.location[0];
         const area = msg.location[1];
         const text = msg.text;
 
         const newContent = this.state.content;
-
-        newContent[grid][area]["text"] = text;
+        if (area === "a") {
+          newContent["E"]["4"]["text"] = text;
+        } else newContent[grid][area]["text"] = text;
         this.setState({
           content: newContent
         });
@@ -255,6 +258,7 @@ class App extends React.Component {
 
   async updateMainContent(grid, num, text) {
     console.log(grid, num, text);
+
     let newContent = this.state.content;
     if (!newContent) {
       newContent = {};
@@ -274,7 +278,7 @@ class App extends React.Component {
     const option = {
       type: "edit",
       chart: this.state.hash,
-      location: grid + num,
+      location: grid === "E" && num === "4" ? "name" : grid + num,
       text: text
     };
     console.log(option);
@@ -302,7 +306,7 @@ class App extends React.Component {
     const option = {
       type: "edit",
       chart: this.state.hash,
-      location: "E4",
+      location: "name",
       text: newContent["E"]["4"]["text"]
     };
     // 수정 작업 socket 전송
